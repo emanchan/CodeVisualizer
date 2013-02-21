@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
-	var maxLeftPanelWidth = $("#content").width() - 50;
+	var maxLeftPanelWidth = contentWidth - 50;
 
 	$("#lpanel").resizable({
       handles: 'e',
@@ -25,7 +25,8 @@ $(document).ready(function () {
 
 	$(window).resize(function() {
 		contentWidth = $("#content").width();
-		maxLeftPanelWidth = $("#content").width() - 50;
+		maxLeftPanelWidth = contentWidth - 50;
+		$("#lpanel").resizable("option","maxWidth",maxLeftPanelWidth);
 		$("#rpanel").width(contentWidth - $("#lpanel").width());
 	});
 });
