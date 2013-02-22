@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	var resize= $("#lpanel");
+  var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
 	var maxLeftPanelWidth = contentWidth - 50;
 
