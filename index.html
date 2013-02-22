@@ -15,17 +15,16 @@
 		<div id="content">
 			<div id="lpanel"> 
 				<form action="javascript:compileCode()">
-     				<textarea id="js_code" cols="50" rows="5"></textarea>
+     				<textarea id="js_code"></textarea>
      				<input id="compilation_level" type="hidden" name="compilation_level" value="WHITESPACE_ONLY">
-    				<input id="output_format" type="hidden" name="output_format" value="text">
+    				<input id="output_format" type="hidden" name="output_format" value="json">
     				<input id="output_info" type="hidden" name="output_info" value="compiled_code">
       				<input type="submit" value="Optimize">
     			</form>
 			</div>
 			<div id="rpanel">
-				<div id="optimized_code">
-
-				</div>
+				<h2>Code Info</h2>
+				<textarea disabled id="optimized_code">Optimized_Code</textarea>
 			</div>
 			<div class="clear"></div>
 		</div>
