@@ -1,3 +1,24 @@
+function compileCode () {
+  console.log("Sending!");
+  var js_code = $("#js_code").val();
+  var compilation_level = $("#compilation_level").val();
+  var output_format = $("#output_format").val();
+  var output_info = $("#output_info").val();
+  compile(js_code, compilation_level, output_format, output_info);
+}
+
+function compile(js_code, compilation_level, output_format, output_info) {
+  $.ajax({
+    type: "post",
+    data: {"js_code":js_code, "compilation_level":compilation_level, "output_format":output_format, "output_info":output_info},
+    url: "http://closure-compiler.appspot.com/compile",
+    success: function (data) {
+      console.log(data);
+      console.log("Sent!");
+    }
+  });
+}
+
 $(document).ready(function () {
   var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
