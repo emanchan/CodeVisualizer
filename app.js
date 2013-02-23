@@ -24,9 +24,16 @@ app.post("/login", function(request, response) {
 			success: true});
 	}
 
-	else { // User exists, bring to homepage
+	else if { // User exists, bring to homepage
 		response.send({
 			username: username,
 			success: true});
 	}
+}
+
+app.get("/files/:username", function(request, response) {
+	var username = decodeURI(request.params.username)
+	response.send({ // Send back file data
+		files: database[username]
+	});
 }

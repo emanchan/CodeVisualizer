@@ -1,3 +1,5 @@
+var localStorage
+
 function compileCode () {
   console.log("Sending!");
   var js_code = $("#js_code").val();
@@ -31,6 +33,18 @@ function compile(js_code, compilation_level, output_format) {
 
 function updateCompiledCode(code) {
   $("#optimized_code").html(code);
+}
+
+function getFiles(username) {
+  $.ajax({
+    type: "get",
+    dataType: "json",
+    url: "/files/" + encodeURI(username),
+    success: function (data) {
+      localStorage = data;
+    }
+  });
+
 }
 
 $(document).ready(function () {
