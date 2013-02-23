@@ -40,7 +40,6 @@ function getErrors(js_code, compilation_level) {
       }
     },
     error: function () {
-      updateCompiledCode(data);
       console.log("Error getting code");
     },
   });
@@ -66,8 +65,8 @@ function getFiles(username) {
 
 function generateFileSelector() {
   for (file in localStorage) {
-  var fileSelector = $("#file_selector") // Create div for individual file
-  fileSelector.append("<div>").append("<p>").html(file)
+    var fileSelector = $("#file_selector"); // Create div for individual file
+    fileSelector.append("<div>").append("<p>").html(file);
   }
 }
 
@@ -80,7 +79,6 @@ function createFile(filename) {
       "filename": filename,
       "text": "TEST"
     },
-    url: 
   });
 }
 
