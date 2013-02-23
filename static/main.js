@@ -10,7 +10,7 @@ function sendCode () {
   getErrors(js_code, compilation_level);
 }
 
-//Retrives compiled code
+//Retrives compiled code and checks for server errors
 function compileCode(js_code, compilation_level) {
   $.ajax({
     type: "post",
@@ -18,15 +18,21 @@ function compileCode(js_code, compilation_level) {
     data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"compiled_code", 'formatting':"pretty_print"},
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
-      updateCompiledCode(data.compiledCode);
-    },
+      if(data.compiledCode === undefined){
+        updateCompiledCode(data.serverErrors[0].error);
+      } else {
+        updateCompiledCode(data.compiledCode);
+      }
+      console.log("sent!");
+    },  
     error: function () {
-      updateCompiledCode(data);
+      updateCompiledCode("Error!");
       console.log("Error getting code");
     },
   });
 }
 
+//Retrives errors if there are any
 function getErrors(js_code, compilation_level) {
   $.ajax({
     type: "post",
@@ -34,9 +40,14 @@ function getErrors(js_code, compilation_level) {
     data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"errors"},
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
-      // conssole.log(data.errors[0].error);
-      for(var i = 0; i < data.errors.length; i++) {
-        console.log(data.errors[i].error);
+      if(data.errors !== undefined){
+        var errorMSG = "";
+        for(var i = 0; i < data.errors.length; i++) {
+          errorMSG += "Line: " + data.errors[i].lineno + '\n';
+          errorMSG += "  " + data.errors[i].error + '\n';
+        }
+        // console.log(errorMSG);
+        updateCompiledCode(errorMSG);
       }
     },
     error: function () {
@@ -85,7 +96,7 @@ function createFile(filename) {
 $(document).ready(function () {
   var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
-	var maxLeftPanelWidth = contentWidth - 50;
+	var maxLeftPanelWidth = contentWidth - 60;
 
 	$("#lpanel").resizable({
       handles: 'e',
