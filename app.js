@@ -34,6 +34,7 @@ app.post("/login", function(request, response) {
 app.get("/files/:username", function(request, response) {
 	var username = decodeURI(request.params.username)
 	response.send({ // Send back file data
-		files: database[username]
+		files: database[username],
+		success: true
 	});
 }

@@ -1,4 +1,4 @@
-var localStorage
+var localStorage // Holds the information for the user's files
 
 function compileCode () {
   console.log("Sending!");
@@ -41,10 +41,9 @@ function getFiles(username) {
     dataType: "json",
     url: "/files/" + encodeURI(username),
     success: function (data) {
-      localStorage = data;
+      localStorage = data.files;
     }
   });
-
 }
 
 $(document).ready(function () {
@@ -79,3 +78,8 @@ $(document).ready(function () {
 		$("#rpanel").width(contentWidth - $("#lpanel").width());
 	});
 });
+
+
+function moveUp() {
+  $("#file_select").slideUp();
+}
