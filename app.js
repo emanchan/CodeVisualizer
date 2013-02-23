@@ -15,7 +15,7 @@ app.use(express.bodyParser());
 database = {}
 
 // Login post
-app.post("/login", function(request, response) {
+app.post("/login", function(request, response)) {
 	var username = request.body.user
 	if (database[username] === undefined) { // User not found, make new user
 		database[username] = {};
@@ -37,4 +37,13 @@ app.get("/files/:username", function(request, response) {
 		files: database[username],
 		success: true
 	});
+}
+
+app.post("/create", function(request, response)) {
+	var filename = request.body.filename;
+	var text = request.body.text;
+	var currentUser = request.body.currentUser;
+
+	if (database[currentUser][filename] !== undefined) // File exists, return error to user
+	database[currentUser][filename] = text;
 }

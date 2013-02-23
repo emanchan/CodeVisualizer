@@ -1,5 +1,5 @@
-var localStorage // Holds the information for the user's files
-
+var localStorage; // Holds the information for the user's files
+var currentUser;
 function compileCode () {
   console.log("Sending!");
   var js_code = $("#js_code").val();
@@ -79,7 +79,22 @@ $(document).ready(function () {
 	});
 });
 
+function generateFileSelector() {
+  for (file in localStorage) {
+  var fileSelector = $("#file_selector") // Create div for individual file
+  fileSelector.append("<div>").append("<p>").html(file)
+  }
+}
 
-function moveUp() {
-  $("#file_select").slideUp();
+function createFile(filename) {
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    data: {
+      "currentUser": currentUser,
+      "filename": filename,
+      "text": "TEST"
+    },
+    url: 
+  });
 }
