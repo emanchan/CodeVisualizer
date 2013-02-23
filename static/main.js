@@ -1,29 +1,46 @@
-function compileCode () {
+// This file handles AJAX and events
+
+//Sends code to google closure compiler
+function sendCode () {
   console.log("Sending!");
   var js_code = $("#js_code").val();
   var compilation_level = $("#compilation_level").val();
   var output_format = $("#output_format").val();
-  var output_info = $("#output_info").val();
-  compile(js_code, compilation_level, output_format);
+  compileCode(js_code, compilation_level);
+  getErrors(js_code, compilation_level);
 }
 
-function compile(js_code, compilation_level, output_format) {
+//Retrives compiled code
+function compileCode(js_code, compilation_level) {
   $.ajax({
     type: "post",
     dataType: "json",
-    data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':output_format, 'output_info':"compiled_code", 'formatting':"pretty_print"},
+    data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"compiled_code", 'formatting':"pretty_print"},
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
-      console.log(data.compiledCode);
-
       updateCompiledCode(data.compiledCode);
-
-      console.log("Sent!");
     },
     error: function () {
+      updateCompiledCode(data);
+      console.log("Error getting code");
+    },
+  });
+}
 
-      updateCompiledCode(data.compiledCode);
-
+function getErrors(js_code, compilation_level) {
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"errors"},
+    url: "http://closure-compiler.appspot.com/compile",
+    success: function (data) {
+      // conssole.log(data.errors[0].error);
+      for(var i = 0; i < data.errors.length; i++) {
+        console.log(data.errors[i].error);
+      }
+    },
+    error: function () {
+      updateCompiledCode(data);
       console.log("Error getting code");
     },
   });
