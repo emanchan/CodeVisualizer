@@ -50,6 +50,40 @@ function updateCompiledCode(code) {
   $("#optimized_code").html(code);
 }
 
+var localStorage; // Holds the information for the user's files
+var currentUser;
+
+function getFiles(username) {
+  $.ajax({
+    type: "get",
+    dataType: "json",
+    url: "/files/" + encodeURI(username),
+    success: function (data) {
+      localStorage = data.files;
+    }
+  });
+}
+
+function generateFileSelector() {
+  for (file in localStorage) {
+  var fileSelector = $("#file_selector") // Create div for individual file
+  fileSelector.append("<div>").append("<p>").html(file)
+  }
+}
+
+function createFile(filename) {
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    data: {
+      "currentUser": currentUser,
+      "filename": filename,
+      "text": "TEST"
+    },
+    url: 
+  });
+}
+
 $(document).ready(function () {
   var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
