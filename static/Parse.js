@@ -12,7 +12,7 @@ function Function(name, line_number, parent, children, variables, loops, returns
 	this.line_number = line_number; //Int
 	this.parent = parent; //Object of parent function, if any
 	this.children = children; //Array of functions called
-	this.variables = variables; //Array of variable objects
+	this.variables = variables; //Hash of variable objects
 	this.loops = loops; //Array of loops
 	this.returnVals = returns; //Array of Return Value Objects: (value, type)
 }
@@ -25,6 +25,12 @@ function Variable(name, type, line_number) {
 
 function Comment(content, line_number) {
 	this.content = content; //String
+	this.line_number = line_number; //Int
+}
+
+function Return(content, type, line_number) {
+	this.content = content; //String
+	this.type = type; //string
 	this.line_number = line_number; //Int
 }
 
@@ -66,7 +72,7 @@ function parseFunction(name, line_number) {
 	var line = ...;
 	var functionObject;
 	var returnValsArray = new Array(); //Any return statement in the function
- 	var variablesArray = new Array(); //Any variables used in the function 
+ 	var variablesHash = new Object(); //Any variables used in the function 
  	var childrenArray = new Array(); //Any functions called in this function 
  	var functionName = lines
  	for (i = line+1; lines[i].indexOf("function ") !== -1; i++) { //Space needed for anon. functions
@@ -93,11 +99,27 @@ function parseFunction(name, line_number) {
 }
 
 function isLoop(line_number) { 
-	if (line.indexOf("for") !== -1 || line.indexOf("while") !== -1){
+	if (lines[line_number].indexOf("for") !== -1 || lines[line_number].indexOf("while") !== -1){
 	}
 };
 
-function isReturn(line_number){
+function isReturn(line_number) {
+	if (lines[line_number].indexOf("return") !== -1) {return true;}
+	return false;
+}
+
+function parseReturn(line_number, returnValsArray){
+	var return_content;
+	var return_type;
+	if (lines[line_number].indexOf("return") !== -1){
+		 return_content = lines[line_number].split(" ")[1];
+		 if (variablesHash[return_content] !== undefined) {
+		 		return_type = "object";
+		 	}
+		 else {return_type = typeof(eval(return_content));}
+		var returnObject = new Return(return_content, return_type, line_number);
+		returnValsArray.push(returnObject);
+	}
 
 }
 
