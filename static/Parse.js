@@ -69,6 +69,7 @@ function isFunction(line_number) {
 };
 
 function parseFunction(name, line_number) {
+	console.log("Parsing Function...")
 	var line = ...;
 	var functionObject;
 	var returnValsArray = new Array(); //Any return statement in the function
@@ -78,19 +79,19 @@ function parseFunction(name, line_number) {
  	for (i = line+1; lines[i].indexOf("function ") !== -1; i++) { //Space needed for anon. functions
 		line = lines[i];
 		if (isVariable(line) === true){
-
+			parseVariable();
 			}
 		if (isFunction(line) === true){
-
+			parseChildFunction();
 			}
 		if (isLoop(line) === true){
-
+			parseLoop();
 			}
 		if (isComment(line) === true){
-
+			parseComment(line);
 			}
 		if (isReturn(line) === true){
-
+			parseReturn(line, returnValsArray);
 		}
 	}
 	functionObject = Function(name, line_number, children, variables, returns);
