@@ -136,6 +136,15 @@ textarea {
 	margin-top: 12px;
 }
 
+#login_div {
+	position: absolute;
+	background-color: white;
+	top:30px;
+	height: 100%;
+	width:100%;
+	z-index: 10;
+}
+
 .clear{
     clear:both;
 }

@@ -122,7 +122,19 @@ function createFile(filename) {
   });
 }
 
-
+function login() {
+  var userId = $("#login_input").val().toLowerCase();
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    data: {'username' : userId},
+    url: "/login",
+    success: function (data) { // On success, set currentUser to username and hid login div
+      currentUser = data.username;
+      $("#login_div").hide(250);
+    }
+  });
+}
 
 // ***Run when document is ready***
 

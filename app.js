@@ -42,19 +42,24 @@ function writeFile(filename, data, callbackFn) {
 
 // Login post
 app.post("/login", function(request, response) {
-	var username = request.body.user
+	var username = request.body.username
 	if (database[username] === undefined) { // User not found, make new user
 		database[username] = {};
+		console.log(database);
 		response.send({
 			username: username,
 			success: true});
 	}
 
 	else { // User exists, bring to homepage
+		console.log(database);
 		response.send({
 			username: username,
 			success: true});
 	}
+
+	// Save ndatabase to file
+	writeFile("data.txt", JSON.stringify(database));
 });
 
 app.get("/files/:username", function(request, response) {
