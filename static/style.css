@@ -57,6 +57,11 @@ body {
   margin: 0px;
 }
 
+h2 {
+	display: inline;
+	padding: 20px;
+}
+
 textarea {
 	margin: auto auto;
 	width: 80%;
@@ -101,9 +106,16 @@ textarea {
   	z-index: 0;;
 }
 
+#myCanvas {
+	width: 100%;
+	height: 500px;
+	/*border: 1px solid #000;*/
+}
+
 #lpanel{
 	background-color: #FF0000;
 	float: left;
+	padding-top: 8px;
 	width: 30%;
     height: 100%;
 }
@@ -111,8 +123,17 @@ textarea {
 #rpanel{
 	background-color: #9999FF;
 	float: left;
+	padding-top: 8px;
     width: 70%;
     height: 100%;
+}
+
+#editor_area{
+	margin-top: 12px;
+}
+
+#info_area{
+	margin-top: 12px;
 }
 
 .clear{

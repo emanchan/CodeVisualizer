@@ -9,11 +9,12 @@ function sendCode () {
   compileCode(js_code, compilation_level);
 }
 
-compileCode(js_code, compilation_level) {
+function compileCode(js_code, compilation_level) {
   getCompiledCode(js_code, compilation_level);
   getErrors(js_code, compilation_level);
   getWarnings(js_code, compilation_level);
   getStatistics(js_code, compilation_level);
+  updateCompiledCode();
 }
 
 //Retrives compiled code and checks for server errors
@@ -25,9 +26,9 @@ function getCompiledCode(js_code, compilation_level) {
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
       if(data.compiledCode === undefined){
-        updateCompiledCode(data.serverErrors[0].error);
+        return data.serverErrors[0].error;
       } else {
-        updateCompiledCode(data.compiledCode);
+        return data.compiledCode;
       }
       console.log("sent!");
     }
@@ -48,8 +49,7 @@ function getErrors(js_code, compilation_level) {
           errorMSG += "Line: " + data.errors[i].lineno + '\n';
           errorMSG += "  " + data.errors[i].error + '\n';
         }
-        //console.log(errorMSG);
-        updateCompiledCode(errorMSG);
+        return errorMSG;
       }
     }
   });
@@ -63,6 +63,7 @@ function getWarnings(js_code, compilation_level) {
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
       //TODO
+    }
   });
 }
 
@@ -146,4 +147,26 @@ $(document).ready(function () {
 		$("#lpanel").resizable("option","maxWidth",maxLeftPanelWidth);
 		$("#rpanel").width(contentWidth - $("#lpanel").width());
 	});
+
+  $("#visualizer").click(function () {
+    if($("#code_content" === undefined)){
+      var info = $("#info_area").empty();
+      var canvas = $("<canvas>");
+      canvas.attr("id","myCanvas");
+      canvas.html("No canvas available!");
+      info.append(canvas);
+      console.log("Change!");
+    }
+  });
+
+  $("#code_info").click(function () {
+    if($("#myCanvas" === undefined)){
+      var info = $("#info_area").empty();
+      var codeContent = $("<textarea disabled>");
+      codeContent.attr("id","code_content");
+      codeContent.html("Optimized_Code");
+      info.append(codeContent);
+      console.log("Change!");
+    }
+  });
 });
