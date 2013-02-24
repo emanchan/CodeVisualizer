@@ -7,11 +7,17 @@ function sendCode () {
   var compilation_level = $("#compilation_level").val();
   var output_format = $("#output_format").val();
   compileCode(js_code, compilation_level);
+}
+
+compileCode(js_code, compilation_level) {
+  getCompiledCode(js_code, compilation_level);
   getErrors(js_code, compilation_level);
+  getWarnings(js_code, compilation_level);
+  getStatistics(js_code, compilation_level);
 }
 
 //Retrives compiled code and checks for server errors
-function compileCode(js_code, compilation_level) {
+function getCompiledCode(js_code, compilation_level) {
   $.ajax({
     type: "post",
     dataType: "json",
@@ -24,11 +30,7 @@ function compileCode(js_code, compilation_level) {
         updateCompiledCode(data.compiledCode);
       }
       console.log("sent!");
-    },  
-    error: function () {
-      updateCompiledCode("Error!");
-      console.log("Error getting code");
-    },
+    }
   });
 }
 
@@ -41,23 +43,43 @@ function getErrors(js_code, compilation_level) {
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
       if(data.errors !== undefined){
-        var errorMSG = "";
+        var errorMSG = "Compile errors:\n";
         for(var i = 0; i < data.errors.length; i++) {
           errorMSG += "Line: " + data.errors[i].lineno + '\n';
           errorMSG += "  " + data.errors[i].error + '\n';
         }
-        // console.log(errorMSG);
+        //console.log(errorMSG);
         updateCompiledCode(errorMSG);
       }
-    },
-    error: function () {
-      console.log("Error getting code");
-    },
+    }
+  });
+}
+
+function getWarnings(js_code, compilation_level) {
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"warnings"},
+    url: "http://closure-compiler.appspot.com/compile",
+    success: function (data) {
+      //TODO
+  });
+}
+
+function getStatistics(js_code, compilation_level) {
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"statistics"},
+    url: "http://closure-compiler.appspot.com/compile",
+    success: function (data) {
+      //TODO
+    }
   });
 }
 
 function updateCompiledCode(code) {
-  $("#optimized_code").html(code);
+  $("#code_content").html(code);
 }
 
 var localStorage; // Holds the information for the user's files
