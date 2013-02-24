@@ -1,4 +1,6 @@
 // This file handles AJAX and events
+var localStorage; // Holds the information for the user's files
+var currentUser = "testUser";
 
 //Sends code to google closure compiler
 function sendCode () {
@@ -83,9 +85,6 @@ function updateCompiledCode(code) {
   $("#code_content").html(code);
 }
 
-var localStorage; // Holds the information for the user's files
-var currentUser;
-
 function getFiles(username) {
   $.ajax({
     type: "get",
@@ -117,9 +116,8 @@ function createFile(filename) {
     success: function (data) {
       localStorage[filename] = "// Enter Your Code Here";
     },
-    error: function(){
-    alert('You cannot create another file with the same name');
-  }
+    error: function(xhr) {
+      alert(xhr.responseText);}
   });
 }
 
