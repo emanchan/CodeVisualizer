@@ -13,7 +13,6 @@ function compileCode(js_code, compilation_level) {
   getErrors(js_code, compilation_level);
   getWarnings(js_code, compilation_level);
   getStatistics(js_code, compilation_level);
-  updateCompiledCode();
 }
 
 //Retrives compiled code and checks for server errors
@@ -25,11 +24,10 @@ function getCompiledCode(js_code, compilation_level) {
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
       if(data.compiledCode === undefined){
-        return data.serverErrors[0].error;
+         $("#code_content").html(data.serverErrors[0].error);
       } else {
-        return data.compiledCode;
+        $("#code_content").html(data.compiledCode);
       }
-      console.log("sent!");
     }
   });
 }
@@ -48,7 +46,7 @@ function getErrors(js_code, compilation_level) {
           errorMSG += "Line: " + data.errors[i].lineno + '\n';
           errorMSG += "  " + data.errors[i].error + '\n';
         }
-        return errorMSG;
+        $("#code_content").html(errorMSG);
       }
     }
   });
