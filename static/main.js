@@ -119,7 +119,7 @@ function createFile(filename) {
     },
     error: function(xhr) {
       alert(xhr.responseText);}
-  });
+  });generateFileSelector
 }
 
 
