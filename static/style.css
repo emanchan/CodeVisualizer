@@ -52,7 +52,7 @@ table {
 body {
   background: #FFF;
   color: #000;
-  font: 16px/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Raleway', sans-serif;
   padding: 0px;
   margin: 0px;
 }
@@ -66,6 +66,7 @@ textarea {
 	margin: auto auto;
 	width: 80%;
 	height: 300px;
+	font-family: 'Inconsolata', sans-serif;
 }
 
 #title{
