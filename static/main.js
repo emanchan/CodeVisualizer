@@ -1,5 +1,5 @@
 // This file handles AJAX and events
-var localStorage; // Holds the information for the user's files
+var localStorage = {}; // Holds the information for the user's files
 var currentUser = "testUser";
 
 //Sends code to google closure compiler
@@ -92,6 +92,7 @@ function getFiles(username) {
     url: "/files/" + encodeURI(username),
     success: function (data) {
       localStorage = data.files;
+      console.log(localStorage);
     }
   });
 }
