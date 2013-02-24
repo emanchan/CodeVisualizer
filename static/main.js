@@ -111,8 +111,15 @@ function createFile(filename) {
     data: {
       "currentUser": currentUser,
       "filename": filename,
-      "text": "TEST"
+      "text": "// Enter Your Code Here"
     },
+    url: "/create/",
+    success: function (data) {
+      localStorage[filename] = "// Enter Your Code Here";
+    },
+    error: function(){
+    alert('You cannot create another file with the same name');
+  }
   });
 }
 
