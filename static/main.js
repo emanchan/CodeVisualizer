@@ -1,5 +1,5 @@
 // This file handles AJAX and events
-var localStorage = {}; // Holds the information for the user's files
+var localDatabase = {}; // Holds the information for the user's files
 var currentUser = "testUser";
 
 //Sends code to google closure compiler
@@ -91,14 +91,14 @@ function getFiles(username) {
     dataType: "json",
     url: "/files/" + encodeURI(username),
     success: function (data) {
-      localStorage = data.files;
-      console.log(localStorage);
+      localDatabase = data.files;
+      console.log(localDatabase);
     }
   });
 }
 
 function generateFileSelector() {
-  for (file in localStorage) {
+  for (file in localDatabase) {
     var fileSelector = $("#file_selector"); // Create div for individual file
     fileSelector.append("<div>").append("<p>").html(file);
   }
@@ -115,12 +115,16 @@ function createFile(filename) {
     },
     url: "/create/",
     success: function (data) {
-      localStorage[filename] = "// Enter Your Code Here";
+      localDatabase[filename] = "// Enter Your Code Here";
     },
     error: function(xhr) {
       alert(xhr.responseText);}
   });
 }
+
+
+
+// ***Run when document is ready***
 
 $(document).ready(function () {
   var resize= $("#lpanel");
@@ -175,4 +179,10 @@ $(document).ready(function () {
       console.log("Change!");
     }
   });
+
+  // Hide file_select div, only show it when user needs to select file
+
+  $("#file_select").hide(0);
+  getFiles(currentUser); // on load get currentUser files
+
 });
