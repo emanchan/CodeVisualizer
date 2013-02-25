@@ -79,9 +79,10 @@ textarea {
 
 #title{
 	padding-top: 4px;
-	position: absolute;
+	position: relative;
 	font-size: 20px;
 	font-weight: bold;
+	width: 150px;
 }
 
 #titlebar{
@@ -93,7 +94,7 @@ textarea {
 	width: 100%;
 	height: 30px;
 	box-shadow: 0 0px 5px 0px black;
-	
+	display: inline;
 	z-index: 2;
 	/*border-top: 1px solid #FFF;*/
 }
@@ -171,6 +172,10 @@ textarea {
 	z-index: 1;
 }
 
+#navbar {
+	display: inline;
+	list-style: none;
+}
 
 
 .file_row {
@@ -180,6 +185,13 @@ textarea {
 
 .file_row:hover {
 	background-color: yellow;
+}
+
+.nav_button {
+	position: relative;
+	width: 150px;
+	height: 30px;
+	margin: 0px;
 }
 
 .clear{
