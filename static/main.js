@@ -125,10 +125,18 @@ $(document).ready(function () {
       $("#code_info").css("font-weight", "bold");
       $("#visualizer").css("font-weight", "normal");
       var info = $("#info_area").empty();
-      var codeContent = $("<textarea disabled>");
-      codeContent.attr("id","code_content");
+      var codeContent = $("<textarea disabled>").attr("id","code_content");
       codeContent.html("Optimized_Code");
+
+      var statArea = $("<div>").attr("id","stat_area");
+      statArea.html($("<h3>").html("Statistics:").append($("<p>").html("No statistics")));
+
+      var infoArea = $("<div>").attr("id","warning_area");
+      infoArea.html($("<h3>").html("Warnings:").append($("<p>").html("No warnings")));
+
       info.append(codeContent);
+      info.append(statArea);
+      info.append(infoArea);
     }
   });
 

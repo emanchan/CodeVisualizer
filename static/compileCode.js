@@ -60,7 +60,15 @@ function getWarnings(js_code, compilation_level) {
     data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"warnings"},
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
-      //TODO
+      $("#warning_area p").html("No warnings");
+      if(data.warnings !== undefined){
+        var warningMSG = "";
+        for(var i = 0; i < data.warnings.length; i++) {s
+          warningMSG += "Line: " + data.warnings[i].lineno + '\n';
+          warningMSG += "  " + data.warnings[i].warning + '\n';
+        }
+        $("#warning_area p").html(warningMSG);
+      }
     }
   });
 }
@@ -72,7 +80,13 @@ function getStatistics(js_code, compilation_level) {
     data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"statistics"},
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
-      //TODO
+      $("#stat_area p").html("No statistics");
+      if(data.statistics !== undefined) {
+        var statMSG = "Original size: " + data.statistics.originalSize + "\n";
+        statMSG += "Compressed size: " + data.statistics.compressedSize + "\n";
+        statMSG += "Compile Time" + data.statistics.compileTime;
+        $("#stat_area p").html(statMSG);
+      }
     }
   });
 }
