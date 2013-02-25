@@ -79,7 +79,10 @@ app.post("/create", function(request, response) {
 		response.send(500, { error: "File already exists" });
 	}
 	else { // Create file and add text
-		database[currentUser][filename] = text;
+		database[currentUser][filename] = {
+			text: text,
+			date: request.body.dateCreated
+		};
 		response.send({ success:true });
 		console.log(database);
 		writeFile("data.txt", JSON.stringify(database));

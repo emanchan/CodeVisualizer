@@ -1,6 +1,6 @@
 // This file handles AJAX and events
 var localDatabase = {}; // Holds the information for the user's files
-var currentUser = "testUser";
+var currentUser = "";
 
 function getFiles(username) {
   $.ajax({
@@ -9,16 +9,23 @@ function getFiles(username) {
     url: "/files/" + encodeURI(username),
     success: function (data) {
       localDatabase = data.files;
-      console.log(localDatabase);
     }
   });
 }
 
 function generateFileSelector() {
-  for (file in localDatabase) {
-    var fileSelector = $("#file_selector"); // Create div for individual file
-    fileSelector.append("<div>").append("<p>").html(file);
+  for (var filename in localDatabase) {
+    var file = localDatabase[filename];
+    console.log(filename);
+
+    var fileSelector = $("#file_select"); // Create div for individual file
+
+    var newDiv = $("<div>")
+    newDiv.append("<p>").text(filename+ " " + file["date"]);
+    
+    fileSelector.append(newDiv);
   }
+  $("#file_select").show(250);
 }
 
 function createFile(filename) {
@@ -27,16 +34,21 @@ function createFile(filename) {
     dataType: "json",
     data: {
       "currentUser": currentUser,
+      "dateCreated": new Date(),
       "filename": filename,
       "text": "// Enter Your Code Here"
     },
     url: "/create/",
     success: function (data) {
-      localDatabase[filename] = "// Enter Your Code Here";
+      localDatabase[filename] = {
+        "text": "// Enter Your Code Here",
+        "date": new Date()
+      };
     },
     error: function(xhr) {
-      alert(xhr.responseText);}
-  });generateFileSelector
+      alert(xhr.responseText)}
+  });
+  
 }
 
 function login() {
@@ -46,8 +58,9 @@ function login() {
     dataType: "json",
     data: {'username' : userId},
     url: "/login",
-    success: function (data) { // On success, set currentUser to username and hid login div
+    success: function (data) { // On success, set currentUser to username, hid login div, and get files
       currentUser = data.username;
+      getFiles(currentUser);
       $("#login_div").hide(250);
     }
   });
@@ -105,6 +118,5 @@ $(document).ready(function () {
   // Hide file_select div, only show it when user needs to select file
 
   $("#file_select").hide(0);
-  getFiles(currentUser); // on load get currentUser files
 
 });
