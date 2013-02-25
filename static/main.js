@@ -31,7 +31,11 @@ function generateFileSelector() {
     
     fileSelector.append(newDiv);
   }
-  $("#file_select").show(250);
+  $("#file_select").show(0);
+  $("#file_select").reveal({
+    animation: 'fade',
+    animationspeed: 300,
+    closeonbackgroundclick: true});
 }
 
 function createFile(filename) {

@@ -93,6 +93,10 @@ app.get("/static/:staticFilename", function (request, response) {
     response.sendfile("static/" + request.params.staticFilename);
 });
 
+app.get("/static/reveal/:staticFilename", function (request, response) {
+    response.sendfile("static/reveal/" + request.params.staticFilename);
+});
+
 function initServer() {
 	// When we start the server, we must load the stored data
 	var defaultList = "{}";

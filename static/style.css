@@ -100,10 +100,9 @@ textarea {
 
 #file_select {
 	position: absolute;
-	top: 30px;
 	background-color: white;
-	width: 100%;
-	height: 100%;
+	width: 50%;
+	height: 50%;
 	z-index: 15;
 }
 
@@ -171,6 +170,8 @@ textarea {
 	width: 100%;
 	z-index: 1;
 }
+
+
 
 .file_row {
 	font-size: 20px;
