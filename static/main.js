@@ -79,6 +79,7 @@ $(document).ready(function () {
   var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
 	var maxLeftPanelWidth = contentWidth - 50;
+  var padding = 1 + 40;
 
 	$("#lpanel").resizable({
       handles: 'e',
@@ -86,7 +87,7 @@ $(document).ready(function () {
       minWidth: 200,
       resize: function(event, ui){
           var currentWidth = ui.size.width;
-          var padding = 1 + 40; 
+      
           $(this).width(currentWidth);
           $("#rpanel").width(contentWidth - currentWidth - padding);            
       }
@@ -96,7 +97,7 @@ $(document).ready(function () {
 		contentWidth = $("#content").width();
 		maxLeftPanelWidth = contentWidth - 50;
 		$("#lpanel").resizable("option","maxWidth",maxLeftPanelWidth);
-		$("#rpanel").width(contentWidth - $("#lpanel").width());
+		$("#rpanel").width(contentWidth - $("#lpanel").width() - padding - 1);
 	});
 
   //Handles switching between code info and visualizer in right panel
