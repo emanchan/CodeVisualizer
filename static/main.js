@@ -34,8 +34,10 @@ function generateFileSelector() {
   $("#file_select").show(0);
   $("#file_select").reveal({
     animation: 'fade',
-    animationspeed: 300,
-    closeonbackgroundclick: true});
+    animationspeed: 200,
+    closeonbackgroundclick: true,
+    dismissmodalclass: 'close-reveal-modal'
+  });
 }
 
 function createFile(filename) {
