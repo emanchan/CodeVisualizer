@@ -40,7 +40,7 @@ function generateFileSelector() {
   });
 }
 
-function createFile() {
+function displayCreateFile() {
   // Display prompt to enter filename
   var popup = $("#create_file_popup");
   popup.reveal({
@@ -49,8 +49,10 @@ function createFile() {
     closeonbackgroundclick: true,
     dismissmodalclass: 'close-reveal-modal'
   });
+}
 
-  var filename = $("#login_input").val();
+function createFile() {
+  var filename = $("#filename_input").val();
   if (filename === "")
     return;
   $.ajax({
@@ -69,6 +71,8 @@ function createFile() {
         "warnings": "",
         "date": new Date()
       };
+      // Dismiss popup
+
     },
     error: function(xhr) {
       alert(xhr.responseText)}
