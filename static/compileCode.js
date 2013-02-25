@@ -1,15 +1,12 @@
 //This file interactes with google closure compler and update DOM
+var canSave;
 
 function sendCode () {
   var js_code = $("#js_code").val();
   var compilation_level = "WHITESPACE_ONLY";
   if($("#compilation_level").is(":checked") === true)
     compilation_level = "SIMPLE_OPTIMIZATIONS";
-  console.log(compilation_level);
-  compileCode(js_code, compilation_level);
-}
-
-function compileCode(js_code, compilation_level) {
+  canSave = '1';
   getCompiledCode(js_code, compilation_level);
   getErrors(js_code, compilation_level);
   getWarnings(js_code, compilation_level);
@@ -26,8 +23,10 @@ function getCompiledCode(js_code, compilation_level) {
     success: function (data) {
       if(data.compiledCode === undefined){
          $("#code_content").html(data.serverErrors[0].error);
+         canSave = '0';
       } else {
         $("#code_content").html(data.compiledCode);
+        localDatabase[currentFile].compiled_code = data.compiledCode;
       }
     }
   });
@@ -48,6 +47,7 @@ function getErrors(js_code, compilation_level) {
           errorMSG += "  " + data.errors[i].error + '\n';
         }
         $("#code_content").html(errorMSG);
+        canSave = '0';
       }
     }
   });
@@ -68,6 +68,7 @@ function getWarnings(js_code, compilation_level) {
           warningMSG += "  " + data.warnings[i].warning + '\n';
         }
         $("#warning_area p").html(warningMSG);
+        localDatabase[currentFile].warnings = warningMSG;
       }
     }
   });
