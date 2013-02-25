@@ -32,7 +32,6 @@ function generateFileSelector() {
     
     fileSelector.append(newDiv);
   }
-  $("#file_select").show(0);
   $("#file_select").reveal({
     animation: 'fade',
     animationspeed: 200,
@@ -41,7 +40,19 @@ function generateFileSelector() {
   });
 }
 
-function createFile(filename) {
+function createFile() {
+  // Display prompt to enter filename
+  var popup = $("#create_file_popup");
+  popup.reveal({
+    animation: 'fade',
+    animationspeed: 200,
+    closeonbackgroundclick: true,
+    dismissmodalclass: 'close-reveal-modal'
+  });
+
+  var filename = $("#login_input").val();
+  if (filename === "")
+    return;
   $.ajax({
     type: "post",
     dataType: "json",
@@ -85,6 +96,10 @@ function updateFile(filename) {
 
 function login() {
   var userId = $("#login_input").val().toLowerCase();
+  var checkUsername = /^[A-Za-z0-9_]{3,20}$/;
+
+  if (!checkUsername.test(userId)) // If regex isn't matched, don't continue
+    return;
   currentUser = userId;
   $.ajax({
     type: "post",
@@ -169,5 +184,4 @@ $(document).ready(function () {
   });
 
   // Hide file_select div, only show it when user needs to select file
-  $("#file_select").hide(0);
 });
