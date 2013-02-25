@@ -1,15 +1,12 @@
 //This file interactes with google closure compler and update DOM
+var canSave;
 
 function sendCode () {
   var js_code = $("#js_code").val();
   var compilation_level = "WHITESPACE_ONLY";
   if($("#compilation_level").is(":checked") === true)
     compilation_level = "SIMPLE_OPTIMIZATIONS";
-  console.log(compilation_level);
-  compileCode(js_code, compilation_level);
-}
-
-function compileCode(js_code, compilation_level) {
+  canSave = '1';
   getCompiledCode(js_code, compilation_level);
   getErrors(js_code, compilation_level);
   getWarnings(js_code, compilation_level);
@@ -26,8 +23,10 @@ function getCompiledCode(js_code, compilation_level) {
     success: function (data) {
       if(data.compiledCode === undefined){
          $("#code_content").html(data.serverErrors[0].error);
+         canSave = '0';
       } else {
         $("#code_content").html(data.compiledCode);
+        localDatabase[currentFile].compiled_code = data.compiledCode;
       }
     }
   });
@@ -48,6 +47,7 @@ function getErrors(js_code, compilation_level) {
           errorMSG += "  " + data.errors[i].error + '\n';
         }
         $("#code_content").html(errorMSG);
+        canSave = '0';
       }
     }
   });
@@ -60,7 +60,18 @@ function getWarnings(js_code, compilation_level) {
     data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"warnings"},
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
-      //TODO
+      if(data.warnings !== undefined){
+        var warningMSG = "";
+        for(var i = 0; i < data.warnings.length; i++) {s
+          warningMSG += "Line: " + data.warnings[i].lineno + '\n';
+          warningMSG += "  " + data.warnings[i].warning + '\n';
+        }
+        $("#warning_area p").html(warningMSG);
+        localDatabase[currentFile].warnings = warningMSG;
+      } else {
+        $("#warning_area p").html("No warnings");
+        localDatabase[currentFile].warnings = "No warnings";
+      }
     }
   });
 }
@@ -72,7 +83,13 @@ function getStatistics(js_code, compilation_level) {
     data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"statistics"},
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
-      //TODO
+      $("#stat_area p").html("No statistics");
+      if(data.statistics !== undefined) {
+        var statMSG = "Original size: " + data.statistics.originalSize + "\n";
+        statMSG += "Compressed size: " + data.statistics.compressedSize + "\n";
+        statMSG += "Compile Time" + data.statistics.compileTime;
+        $("#stat_area p").html(statMSG);
+      }
     }
   });
 }

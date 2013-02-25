@@ -1,6 +1,7 @@
 // This file handles AJAX and events
 var localDatabase = {}; // Holds the information for the user's files
 var currentUser = "";
+var currentFile = "";
 
 function getFiles(username) {
   $.ajax({
@@ -48,23 +49,43 @@ function createFile(filename) {
       "currentUser": currentUser,
       "dateCreated": new Date(),
       "filename": filename,
-      "text": "// Enter Your Code Here"
     },
     url: "/create/",
     success: function (data) {
       localDatabase[filename] = {
         "text": "// Enter Your Code Here",
+        "compiled_code": "",
+        "warnings": "",
         "date": new Date()
       };
     },
     error: function(xhr) {
       alert(xhr.responseText)}
   });
-  
+}
+
+function updateFile(filename) {
+  if(canSave === '1'){
+    $.ajax({
+    type: "post",
+    dataType: "json",
+    data: {
+      "currentUser": currentUser,
+      "filename": filename,
+      "text": localDatabase[filename].text,
+      "compiled_code": localDatabase[filename].compiled_code,
+      "warnings": localDatabase[filename].warnings
+    },
+    url: "/save/",
+    error: function(xhr) {
+      alert(xhr.responseText)}
+    });
+  }
 }
 
 function login() {
   var userId = $("#login_input").val().toLowerCase();
+  currentUser = userId;
   $.ajax({
     type: "post",
     dataType: "json",
@@ -74,7 +95,6 @@ function login() {
       currentUser = data.username;
       getFiles(currentUser);
       $("#login_div").hide(250);
-      getFiles(currentUser);
     }
   });
 }
@@ -82,10 +102,10 @@ function login() {
 // ***Run when document is ready***
 
 $(document).ready(function () {
-  var resize= $("#lpanel");
+      var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
 	var maxLeftPanelWidth = contentWidth - 50;
-  var padding = 1 + 40;
+      var padding = 1 + 40;
 
 	$("#lpanel").resizable({
       handles: 'e',
@@ -125,10 +145,18 @@ $(document).ready(function () {
       $("#code_info").css("font-weight", "bold");
       $("#visualizer").css("font-weight", "normal");
       var info = $("#info_area").empty();
-      var codeContent = $("<textarea disabled>");
-      codeContent.attr("id","code_content");
+      var codeContent = $("<textarea disabled>").attr("id","code_content");
       codeContent.html("Optimized_Code");
+
+      var statArea = $("<div>").attr("id","stat_area");
+      statArea.html($("<h3>").html("Statistics:").append($("<p>").html("No statistics")));
+
+      var infoArea = $("<div>").attr("id","warning_area");
+      infoArea.html($("<h3>").html("Warnings:").append($("<p>").html("No warnings")));
+
       info.append(codeContent);
+      info.append(statArea);
+      info.append(infoArea);
     }
   });
 
@@ -137,7 +165,7 @@ $(document).ready(function () {
   });
 
   $("#saveCode").click(function () {
-    console.log("Save!");
+    updateFile(currentFile);
   });
 
   // Hide file_select div, only show it when user needs to select file

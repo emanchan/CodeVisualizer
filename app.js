@@ -72,7 +72,6 @@ app.get("/files/:username", function(request, response) {
 
 app.post("/create", function(request, response) {
 	var filename = request.body.filename;
-	var text = request.body.text;
 	var currentUser = request.body.currentUser;
 
 	if (database[currentUser][filename] !== undefined) {// File exists, return error to user
@@ -80,12 +79,32 @@ app.post("/create", function(request, response) {
 	}
 	else { // Create file and add text
 		database[currentUser][filename] = {
-			text: text,
-			date: request.body.dateCreated
+			text: "// Enter Your Code Here",
+			date: request.body.dateCreated,
+			compiled_code: "",
+			warnings: ""
 		};
 		response.send({ success:true });
 		console.log(database);
 		writeFile("data.txt", JSON.stringify(database));
+	}
+});
+
+app.post("/save", function(request, response) {
+	var filename = request.body.filename;
+	var currentUser = request.body.currentUser;
+
+	if(database[currentUser][filename] !== undefined){
+		var savedDate = database[currentUser][filename].date;
+		database[currentUser][filename] = {
+		text: request.body.text,
+		date: savedDate,
+		compiled_code: request.body.compiled_code,
+		warnings: request.body.warnings
+	};
+	response.send({ success:true });
+	console.log(database);
+	writeFile("data.txt", JSON.stringify(database));
 	}
 });
 

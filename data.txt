@@ -1,1 +1,1 @@
-{"alvin":{"my app":{"text":"// Enter Your Code Here","date":"Sun Feb 24 2013 19:16:09 GMT-0500 (EST)"},"another app":{"text":"// Enter Your Code Here","date":"Sun Feb 24 2013 19:25:11 GMT-0500 (EST)"}},"alvinw":{}}
+{"alvin":{"my app":{"text":"// Enter Your Code Here","date":"Sun Feb 24 2013 19:16:09 GMT-0500 (EST)","compiled_code":"hello;\n","warnings":"No warnings"},"another app":{"text":"// Enter Your Code Here","date":"Sun Feb 24 2013 19:25:11 GMT-0500 (EST)","compiled_code":"harrow;\n","warnings":"No warnings"}}}
