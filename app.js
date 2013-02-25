@@ -93,9 +93,10 @@ app.post("/create", function(request, response) {
 app.post("/save", function(request, response) {
 	var filename = request.body.filename;
 	var currentUser = request.body.currentUser;
-	var savedDate = database[currentUser][filename].date;
 
-	database[currentUser][filename] = {
+	if(database[currentUser][filename] !== undefined){
+		var savedDate = database[currentUser][filename].date;
+		database[currentUser][filename] = {
 		text: request.body.text,
 		date: savedDate,
 		compiled_code: request.body.compiled_code,
@@ -104,6 +105,7 @@ app.post("/save", function(request, response) {
 	response.send({ success:true });
 	console.log(database);
 	writeFile("data.txt", JSON.stringify(database));
+	}
 });
 
 app.get("/static/:staticFilename", function (request, response) {

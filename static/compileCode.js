@@ -60,7 +60,6 @@ function getWarnings(js_code, compilation_level) {
     data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"warnings"},
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
-      $("#warning_area p").html("No warnings");
       if(data.warnings !== undefined){
         var warningMSG = "";
         for(var i = 0; i < data.warnings.length; i++) {s
@@ -69,6 +68,9 @@ function getWarnings(js_code, compilation_level) {
         }
         $("#warning_area p").html(warningMSG);
         localDatabase[currentFile].warnings = warningMSG;
+      } else {
+        $("#warning_area p").html("No warnings");
+        localDatabase[currentFile].warnings = "No warnings";
       }
     }
   });
