@@ -20,7 +20,13 @@ function generateFileSelector() {
 
     var fileSelector = $("#file_select"); // Create div for individual file
 
-    var newDiv = $("<div>")
+    // Create new div for each file and add click event to it
+    var newDiv = $("<div>").addClass("file_row").attr("id", filename).click(function() {
+      console.log("clicked");
+      console.log($(this));
+      // TODO add load file method
+    });
+
     newDiv.append("<p>").text(filename+ " " + file["date"]);
     
     fileSelector.append(newDiv);

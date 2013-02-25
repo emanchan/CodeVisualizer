@@ -147,6 +147,15 @@ textarea {
 	z-index: 10;
 }
 
+.file_row {
+	font-size: 20px;
+	background-color: #FFF;
+}
+
+.file_row:hover {
+	background-color: yellow;
+}
+
 .clear{
     clear:both;
 }
