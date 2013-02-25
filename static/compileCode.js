@@ -1,10 +1,11 @@
 //This file interactes with google closure compler and update DOM
 
 function sendCode () {
-  console.log("Sending!");
   var js_code = $("#js_code").val();
-  var compilation_level = $("#compilation_level").val();
-  var output_format = $("#output_format").val();
+  var compilation_level = "WHITESPACE_ONLY";
+  if($("#compilation_level").is(":checked") === true)
+    compilation_level = "SIMPLE_OPTIMIZATIONS";
+  console.log(compilation_level);
   compileCode(js_code, compilation_level);
 }
 
@@ -74,8 +75,4 @@ function getStatistics(js_code, compilation_level) {
       //TODO
     }
   });
-}
-
-function updateCompiledCode(code) {
-  $("#code_content").html(code);
 }

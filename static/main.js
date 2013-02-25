@@ -68,6 +68,7 @@ function login() {
       currentUser = data.username;
       getFiles(currentUser);
       $("#login_div").hide(250);
+      getFiles(currentUser);
     }
   });
 }
@@ -77,7 +78,7 @@ function login() {
 $(document).ready(function () {
   var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
-	var maxLeftPanelWidth = contentWidth - 60;
+	var maxLeftPanelWidth = contentWidth - 50;
 
 	$("#lpanel").resizable({
       handles: 'e',
@@ -85,9 +86,9 @@ $(document).ready(function () {
       minWidth: 200,
       resize: function(event, ui){
           var currentWidth = ui.size.width;
-          var padding = 12; 
+          var padding = 1 + 40; 
           $(this).width(currentWidth);
-          $("#rpanel").width(contentWidth - currentWidth);            
+          $("#rpanel").width(contentWidth - currentWidth - padding);            
       }
 	});
 
@@ -101,28 +102,37 @@ $(document).ready(function () {
   //Handles switching between code info and visualizer in right panel
   $("#visualizer").click(function () {
     if($("#code_content" === undefined)){
+      $("#visualizer").css("font-weight", "bold");
+      $("#code_info").css("font-weight", "normal");
       var info = $("#info_area").empty();
       var canvas = $("<canvas>");
       canvas.attr("id","myCanvas");
       canvas.html("No canvas available!");
       info.append(canvas);
-      console.log("Change!");
     }
   });
 
+  //Handles switching between code info and visualizer in right panel
   $("#code_info").click(function () {
     if($("#myCanvas" === undefined)){
+      $("#code_info").css("font-weight", "bold");
+      $("#visualizer").css("font-weight", "normal");
       var info = $("#info_area").empty();
       var codeContent = $("<textarea disabled>");
       codeContent.attr("id","code_content");
       codeContent.html("Optimized_Code");
       info.append(codeContent);
-      console.log("Change!");
     }
   });
 
+  $("#submitCode").click(function () {
+    sendCode();
+  });
+
+  $("#saveCode").click(function () {
+    console.log("Save!");
+  });
+
   // Hide file_select div, only show it when user needs to select file
-
   $("#file_select").hide(0);
-
 });
