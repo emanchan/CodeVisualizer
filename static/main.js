@@ -34,6 +34,8 @@ function generateFileSelector() {
       $("#code_content").val(localDatabase[filename].compiled_code);
       $("#stats_text").val(localDatabase[filename].statistics);
       $("#warning_text").val(localDatabase[filename].warnings);
+      $("#new_filename_input").html(currentFile);
+      $("#status").html("Loaded " + currentFile);
     });
 
     newDiv.append("<p>").text(filename+ " " + file["date"]); // Add date    
@@ -157,7 +159,7 @@ $(document).ready(function () {
       var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
 	var maxLeftPanelWidth = contentWidth - 50;
-      var padding = 1 + 40;
+      var padding = 1 + 3 * 57;
 
 	$("#lpanel").resizable({
       handles: 'e',
@@ -395,8 +397,6 @@ d3.tsv("data.tsv", function(error, data) {
 
   $("#load_button").click(function() {
     generateFileSelector();
-    $("#new_filename_input").html(currentFile);
-    $("#status").html("Loaded " + currentFile);
   });
 
   $("#submitCode").click(function () {

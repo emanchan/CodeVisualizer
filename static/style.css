@@ -230,11 +230,13 @@ textarea {
 }
 
 #warning_area{
+	position: relative;
 	float: left;
-	margin-left: 100px;
+	left: 200px;
 }
 
 #stat_area{
+	position: relative;
 	float: left;
 }
 
@@ -395,7 +397,7 @@ text.shadow {
   stroke-opacity: .8;
 }
 
-body {
+canvas {
   font: 10px sans-serif;
 }
 
