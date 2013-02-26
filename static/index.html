@@ -19,10 +19,10 @@
 				Code Visualizer
 			</div>
 			<ul id = "navbar">
-				<li class = "nav_button">
+				<li class = "nav_button" id = "create_button">
 					Create New File
 				</li>
-				<li class="nav_button">
+				<li class="nav_button" id = "load_button">
 					Load File
 				</li>
 			</ul>
@@ -39,7 +39,6 @@
 		<div id = "create_file_popup" class = "reveal-modal">
 			<input type="text" id = "filename_input" placeholder = "filename" name = "filename">
 			<button id = "create_button" class ="close-reveal-modal" onclick = "createFile()">Create</button>
-			<a class="close-reveal-modal">&#215;</a>
 		</div>
 
 		<!-- file_select Div Overlay -->

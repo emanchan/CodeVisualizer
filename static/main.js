@@ -15,6 +15,9 @@ function getFiles(username) {
 }
 
 function generateFileSelector() {
+  // Clear previous generated file selector
+  $("#file_select").html("");
+
   for (var filename in localDatabase) {
     var file = localDatabase[filename];
     console.log(filename);
@@ -28,10 +31,13 @@ function generateFileSelector() {
       // TODO add load file method
     });
 
-    newDiv.append("<p>").text(filename+ " " + file["date"]);
-    
-    fileSelector.append(newDiv);
+    newDiv.append("<p>").text(filename+ " " + file["date"]); // Add date    
+    fileSelector.append(newDiv); // Add div to fileSelector
   }
+  var closeButton = $("<a>").html("&#215;").addClass("close-reveal-modal");
+    $("#file_select").append(closeButton);
+
+
   $("#file_select").reveal({
     animation: 'fade',
     animationspeed: 200,
@@ -75,7 +81,7 @@ function createFile() {
 
     },
     error: function(xhr) {
-      alert(xhr.responseText)}
+      alert("A file with that name already exists!")}
   });
 }
 
@@ -113,6 +119,7 @@ function login() {
     success: function (data) { // On success, set currentUser to username, hid login div, and get files
       currentUser = data.username;
       getFiles(currentUser);
+      $("#navbar").show(0);
       $("#login_div").hide(250);
     }
   });
@@ -179,6 +186,14 @@ $(document).ready(function () {
     }
   });
 
+  $("#create_button").click(function() {
+    displayCreateFile();
+  });
+
+  $("#load_button").click(function() {
+    generateFileSelector();
+  });
+
   $("#submitCode").click(function () {
     sendCode();
   });
@@ -188,4 +203,5 @@ $(document).ready(function () {
   });
 
   // Hide file_select div, only show it when user needs to select file
-});
+  $("#navbar").hide(0)
+});;
