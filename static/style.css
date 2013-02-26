@@ -89,12 +89,10 @@ textarea {
 
 #title {
 	float: left;
-	padding-top: 4px;
+	padding-top: 1px;
 	padding-left: 5%;
 	padding-right: 35px;
 	position: relative;
-	font-size: 23px;
-	font-weight: bold;
 }
 
 #navbar {
