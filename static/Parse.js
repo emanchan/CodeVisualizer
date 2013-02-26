@@ -5,7 +5,7 @@ var functionHash = new Object();
 var variableArray = new Array();
 var variablesHash = new Object();
 
-var test = "def function x(a,b) { \n return FX(2);\n}\n\ndef function FX(x) { \n return 4;\n}"
+var test = "function x(a,b) { \n return FX(2);\n}\n\n function FX(x) { \n return 4;\n}"
 var lines = test.split("\n");
 var numberOfLines = lines.length;
 
@@ -248,6 +248,10 @@ function parseChildObject(line_number, parent_name, child_name){
 // 		}
 // 	}
 
+function Parse(javascript){
+var lines = javascript.split("\n");
+var numberOfLines = lines.length;
+
 for (var i = 0; i < numberOfLines; i++) {
 	console.log(i, lines[i]);
 	var data = isFunction(i);
@@ -262,6 +266,8 @@ for (var i = 0; i < numberOfLines; i++) {
 	if (data !== false){
 		isChildFunction(i, data);
 	}
+}
+return functionHash;
 }
 
 console.log("Finished...");
