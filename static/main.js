@@ -25,7 +25,7 @@ function generateFileSelector() {
     var fileSelector = $("#file_select"); // Create div for individual file
 
     // Create new div for each file and add click event to it
-    var newDiv = $("<div>").addClass("file_row").attr("id", filename).click(function() {
+    var newDiv = $("<div>").addClass("file_row").addClass("closer").attr("id", filename).click(function() {
       // Load the file into the workspace
       currentFile = $(this).attr("id"); // set the currentFile to file clicked
       // Load code, optimized code, warnings
@@ -38,7 +38,7 @@ function generateFileSelector() {
     newDiv.append("<p>").text(filename+ " " + file["date"]); // Add date    
     fileSelector.append(newDiv); // Add div to fileSelector
   }
-  var closeButton = $("<a>").html("&#215;").addClass("close-reveal-modal");
+  var closeButton = $("<a>").html("&#215;").addClass("close-reveal-modal").addClass("closer");
     $("#file_select").append(closeButton);
 
 
@@ -46,7 +46,7 @@ function generateFileSelector() {
     animation: 'fade',
     animationspeed: 200,
     closeonbackgroundclick: true,
-    dismissmodalclass: 'close-reveal-modal'
+    dismissmodalclass: 'closer'
   });
 }
 
@@ -63,6 +63,7 @@ function displayCreateFile() {
 
 function createFile() {
   var filename = $("#filename_input").val();
+  $("#filename_input").val("");
   if (filename === "")
     return;
   $.ajax({
