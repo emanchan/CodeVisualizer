@@ -155,7 +155,7 @@ $(document).ready(function () {
       var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
 	var maxLeftPanelWidth = contentWidth - 50;
-      var padding = 1 + 40;
+      var padding = 1 + 57*3;
 
 	$("#lpanel").resizable({
       handles: 'e',
@@ -288,10 +288,6 @@ function tick() {
   text.attr("transform", function(d) {
     return "translate(" + d.x + "," + d.y + ")";
   });
-}
-}).call(this);
-}
-});
 
   //Handles switching between code info and visualizer in right panel
   $("#code_info").click(function () {
