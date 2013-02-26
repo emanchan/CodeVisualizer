@@ -90,8 +90,8 @@ textarea {
 #title {
 	float: left;
 	padding-top: 4px;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 5%;
+	padding-right: 35px;
 	position: relative;
 	font-size: 23px;
 	font-weight: bold;
@@ -218,7 +218,7 @@ textarea {
 	position: absolute;
 	background-color: #FFF7EB;
 	top:30px;
-	padding-top: 8px;
+	padding: 5%;
 	height: 100%;
 	width: 100%;
 	z-index: 1;
@@ -244,11 +244,11 @@ input:focus {
 .file_row {
 	font-size: 20px;
 	padding: 6px;
-
+	-webkit-transition: all 0.11s ease-out;
 }
 
 .file_row:hover {
-	background-color: #CAFAFA;
+	background-color: #D4E0EB;
 }
 
 #create_file_popup {
