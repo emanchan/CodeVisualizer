@@ -82,6 +82,7 @@ app.post("/create", function(request, response) {
 			text: "// Enter Your Code Here",
 			date: request.body.dateCreated,
 			compiled_code: "",
+			statistics: "",
 			warnings: ""
 		};
 		response.send({ success:true });
@@ -100,6 +101,7 @@ app.post("/save", function(request, response) {
 		text: request.body.text,
 		date: savedDate,
 		compiled_code: request.body.compiled_code,
+		statistics: request.body.statistics,
 		warnings: request.body.warnings
 	};
 	response.send({ success:true });

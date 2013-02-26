@@ -31,6 +31,7 @@ function generateFileSelector() {
       // Load code, optimized code, warnings
       $("#js_code").html(localDatabase[filename].text);
       $("#code_content").html(localDatabase[filename].compiled_code);
+      $("#stats_text").html(localDatabase[filename].statistics);
       $("#warning_text").html(localDatabase[filename].warnings);
     });
 
@@ -77,10 +78,16 @@ function createFile() {
       localDatabase[filename] = {
         "text": "// Enter Your Code Here",
         "compiled_code": "",
+        "statistics": "",
         "warnings": "",
         "date": new Date()
       };
-      // Dismiss popup
+      // set current file to newly created file
+      currentFile = filename;
+      $("#js_code").html(localDatabase[filename].text);
+      $("#code_content").html(localDatabase[filename].compiled_code);
+      $("#stats_text").html(localDatabase[filename].statistics);
+      $("#warning_text").html(localDatabase[filename].warnings);
 
     },
     error: function(xhr) {
@@ -98,6 +105,7 @@ function updateFile(filename) {
       "filename": filename,
       "text": localDatabase[filename].text,
       "compiled_code": localDatabase[filename].compiled_code,
+      "statistics": localDatabase[filename].statistics,
       "warnings": localDatabase[filename].warnings
     },
     url: "/save/",
@@ -178,10 +186,10 @@ $(document).ready(function () {
       codeContent.html("Optimized_Code");
 
       var statArea = $("<div>").attr("id","stat_area");
-      statArea.html($("<h3>").html("Statistics:").append($("<p>").html("No statistics")));
+      statArea.html($("<h3>").html("Statistics:").append($("<p>").attr("id", "stats_text").html("No statistics")));
 
       var infoArea = $("<div>").attr("id","warning_area");
-      infoArea.html($("<h3>").html("Warnings:").append($("<p>").html("No warnings")));
+      infoArea.html($("<h3>").html("Warnings:").append($("<p>").attr("id", "warning_text").html("No warnings")));
 
       info.append(codeContent);
       info.append(statArea);
