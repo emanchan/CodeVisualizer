@@ -153,11 +153,11 @@ function login() {
 
 $(document).ready(function () {
       var resize= $("#lpanel");
-	var contentWidth = $("#content").width();
-	var maxLeftPanelWidth = contentWidth - 50;
-      var padding = 1 + 57*3;
+  var contentWidth = $("#content").width();
+  var maxLeftPanelWidth = contentWidth - 50;
+      var padding = 1 + 40;
 
-	$("#lpanel").resizable({
+  $("#lpanel").resizable({
       handles: 'e',
       maxWidth: maxLeftPanelWidth,
       minWidth: 200,
@@ -167,14 +167,14 @@ $(document).ready(function () {
           $(this).width(currentWidth);
           $("#rpanel").width(contentWidth - currentWidth - padding);            
       }
-	});
+  });
 
-	$(window).resize(function() {
-		contentWidth = $("#content").width();
-		maxLeftPanelWidth = contentWidth - 50;
-		$("#lpanel").resizable("option","maxWidth",maxLeftPanelWidth);
-		$("#rpanel").width(contentWidth - $("#lpanel").width() - padding - 1);
-	});
+  $(window).resize(function() {
+    contentWidth = $("#content").width();
+    maxLeftPanelWidth = contentWidth - 50;
+    $("#lpanel").resizable("option","maxWidth",maxLeftPanelWidth);
+    $("#rpanel").width(contentWidth - $("#lpanel").width() - padding - 1);
+  });
 
   //Handles switching between code info and visualizer in right panel
   $("#visualizer").click(function () {
@@ -288,6 +288,10 @@ function tick() {
   text.attr("transform", function(d) {
     return "translate(" + d.x + "," + d.y + ")";
   });
+}
+}).call(this);
+}
+});
 
   //Handles switching between code info and visualizer in right panel
   $("#code_info").click(function () {
