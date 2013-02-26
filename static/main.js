@@ -21,8 +21,6 @@ function generateFileSelector() {
 
   for (var filename in localDatabase) {
     var file = localDatabase[filename];
-    console.log(filename);
-
     var fileSelector = $("#file_select"); // Create div for individual file
 
     // Create new div for each file and add click event to it
@@ -30,15 +28,17 @@ function generateFileSelector() {
       // Load the file into the workspace
       currentFile = $(this).attr("id"); // set the currentFile to file clicked
       // Load code, optimized code, warnings
-      $("#js_code").val(localDatabase[filename].text);
-      $("#code_content").val(localDatabase[filename].compiled_code);
-      $("#stats_text").val(localDatabase[filename].statistics);
-      $("#warning_text").val(localDatabase[filename].warnings);
+      $("#js_code").val(localDatabase[currentFile].text);
+      $("#code_content").val(localDatabase[currentFile].compiled_code);
+      $("#stats_text").val(localDatabase[currentFile].statistics);
+      $("#warning_text").val(localDatabase[currentFile].warnings);
       $("#new_filename_input").html(currentFile);
       $("#status").html("Loaded " + currentFile);
 
       $("#new_filename_input").remove();
       $("div label").remove();
+
+      tempFile = '0';
     });
 
     newDiv.append("<p>").text(filename+ " " + file["date"]); // Add date    
@@ -94,6 +94,7 @@ function createFile(filename) {
       $("#warning_text").val(localDatabase[filename].warnings);
       $("#new_filename_input").html(currentFile);
       $("#status").html("Created " + currentFile);
+      tempFile = '0';
     },
     error: function(xhr) {
       alert("A file with that name already exists!")}
@@ -213,7 +214,7 @@ $(document).ready(function () {
 
   //Handles switching between code info and visualizer in right panel
   $("#visualizer").click(function () {
-    if($("#code_content" === undefined)){
+    if($("#code_content" === undefined) && tempFile === '0'){
       $("#visualizer").css("font-weight", "bold");
       $("#code_info").css("font-weight", "normal");
       var info = $("#info_area").empty();
@@ -403,7 +404,7 @@ d3.tsv("data.tsv", function(error, data) {
 
   //Handles switching between code info and visualizer in right panel
   $("#code_info").click(function () {
-    if($("#myCanvas" === undefined)){
+    if($("#myCanvas" === undefined) && tempFile === '0'){
       $("#code_info").css("font-weight", "bold");
       $("#visualizer").css("font-weight", "normal");
       var info = $("#info_area").empty();

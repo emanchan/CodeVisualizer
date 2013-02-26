@@ -214,6 +214,10 @@ textarea {
 	padding-left: 30px;
 }
 
+#rpanel_tabs li{
+	display: inline;
+}
+
 #code_info{
 	padding-right: 10px;
 	font-weight: bold;

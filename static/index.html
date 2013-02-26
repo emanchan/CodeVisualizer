@@ -6,7 +6,6 @@
 		<script type="text/javascript" src="parse.js"></script>
 		<script type="text/javascript" src="compileCode.js"></script>
 		<script type="text/javascript" src="reveal/jquery.reveal.js"></script>
-		<script type="text/javascript" src="textAreaTab.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css" media="all">
 		<link rel="stylesheet" type="text/css" href="jquery-ui.css" media="all">
@@ -66,8 +65,10 @@
     			</div>
 			</div>
 			<div id="rpanel">
-				<h2 id="code_info">Code Info</h2>
-				<h2 id="visualizer">Visualizer</h2>
+				<ul id="rpanel_tabs">
+					<li id="code_info">Code Info</li>
+					<li id="visualizer">Visualizer</li>
+				</ul>
 				<div id="info_area">
 					<textarea disabled id="code_content">Optimized Code</textarea>
 					<div id="stat_area">
