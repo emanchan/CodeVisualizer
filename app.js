@@ -81,9 +81,9 @@ app.post("/create", function(request, response) {
 		database[currentUser][filename] = {
 			text: "// Enter Your Code Here",
 			date: request.body.dateCreated,
-			compiled_code: "",
-			statistics: "",
-			warnings: ""
+			compiled_code: "Haven't compiled any code",
+			statistics: "No statistics",
+			warnings: "No warnings"
 		};
 		response.send({ success:true });
 		console.log(database);
