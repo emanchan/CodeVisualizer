@@ -184,7 +184,7 @@ $(document).ready(function () {
       var info = $("#info_area").empty();
           (function(){
 
-var javascript_text = localDatabase[filename].
+var javascript_text = localDatabase[filename];
 var functionHash = Parse(javascript_text);
 
 function relationships(functionHash){
