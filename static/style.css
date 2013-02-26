@@ -165,7 +165,7 @@ textarea {
 #lpanel{
 	background-color: #FFFAF2;
 	float: left;
-	padding-top: 8px;
+	padding-top: 12px;
 	padding-left: 10px;
 	padding-right: 10px;
 	width: 30%;
@@ -177,7 +177,7 @@ textarea {
 #rpanel{
 	background-color: #FFFAF2;
 	float: left;
-	padding-top: 8px;
+	padding-top: 12px;
 	padding-left: 10px;
 	padding-right: 10px;
     	width: 70%;

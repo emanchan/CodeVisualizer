@@ -83,12 +83,15 @@ function getStatistics(js_code, compilation_level) {
     data: {'js_code' : js_code, 'compilation_level':compilation_level, 'output_format':"json", 'output_info':"statistics"},
     url: "http://closure-compiler.appspot.com/compile",
     success: function (data) {
-      $("#stat_area p").html("No statistics");
       if(data.statistics !== undefined) {
-        var statMSG = "Original size: " + data.statistics.originalSize + "\n";
-        statMSG += "Compressed size: " + data.statistics.compressedSize + "\n";
-        statMSG += "Compile Time" + data.statistics.compileTime;
+        var statMSG = "Original size: " + data.statistics.originalSize + "<br>";
+        statMSG += "Compressed size: " + data.statistics.compressedSize + "<br>";
+        statMSG += "Compile Time: " + data.statistics.compileTime;
         $("#stat_area p").html(statMSG);
+        localDatabase[currentFile].statistics = statMSG;
+      } else {
+        $("#stat_area p").html("No statistics");
+        localDatabase[currentFile].statistics = "No statistics";
       }
     }
   });
