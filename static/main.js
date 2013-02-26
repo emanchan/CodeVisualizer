@@ -152,10 +152,10 @@ function login() {
 // ***Run when document is ready***
 
 $(document).ready(function () {
-      var resize= $("#lpanel");
+  var resize= $("#lpanel");
   var contentWidth = $("#content").width();
   var maxLeftPanelWidth = contentWidth - 50;
-      var padding = 1 + 40;
+  var padding = 1 + 3*57;
 
   $("#lpanel").resizable({
       handles: 'e',
