@@ -5,7 +5,7 @@ var functionHash = new Object();
 var variableArray = new Array();
 var variablesHash = new Object();
 
-var test = "function x(a,b) { \n return FX(2);\n}\n\n function FX(x) { \n return 4;\n}"
+var test = "function x(a,b) { \n return FX(2);\n}\n\nfunction FX(x) { \n return 4;\n}"
 var lines = test.split("\n");
 var numberOfLines = lines.length;
 
@@ -80,9 +80,9 @@ function isFunction(line_number) {
 	}
 	if (lines[line_number].indexOf("function") !== -1) {
 		function_name = lines[line_number].split(" ");
-		console.log("function_name = ", function_name[2].split("(")[0]);
+		console.log("function_name = ", function_name[1].split("(")[0]);
 		//functionArray.push(function_name[2].split("(")[0]);
-		return function_name[2].split("(")[0];
+		return function_name[1].split("(")[0];
 		}
 	else {return false;}
 }
@@ -270,5 +270,6 @@ for (var i = 0; i < numberOfLines; i++) {
 return functionHash;
 }
 
+Parse(test);
 console.log("Finished...");
 //printResults();

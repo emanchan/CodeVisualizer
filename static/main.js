@@ -184,20 +184,26 @@ $(document).ready(function () {
       var info = $("#info_area").empty();
           (function(){
 
-var javascript_text = localDatabase[filename];
-var functionHash = Parse(javascript_text);
+var test = "function x(a,b) { \n return FX(2);\n}\n\nfunction FX(x) { \n return 4;\n}"
+var javascript_text = "function x(a,b) { \n return FX(2);\n}\n\n function FX(x) { \n return 4;\n}";
+var functionHash = Parse(test);
+console.log("functionHash = ", functionHash);
 
 function relationships(functionHash){
+console.log("Function: relationships called");
 var links = new Array();
 for (var key in functionHash) {
+  console.log("key = ", key);
   var object = functionHash[key];
   var functionName = object.name;
   var children = object.children; 
+  console.log("children = ", object.children);
   object.children.forEach(function(x) {
       var relationship = new Object();
-      relationship["source:"] = functionName;
-      relationship["target:"] = x;
-      relationship["type:"] = "suit";
+      relationship["source"] = functionName;
+      relationship["target"] = x.name;
+      relationship["type"] = "suit";
+      console.log("relationship = ", relationship);
       links.push(relationship);
     });
 
@@ -206,6 +212,7 @@ for (var key in functionHash) {
 }
 
 var links = relationships(functionHash);
+console.log("links = ", links);
 var nodes = {};
 
 // Compute the distinct nodes from the links.
