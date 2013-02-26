@@ -422,6 +422,24 @@ d3.tsv("data.tsv", function(error, data) {
     }
   });
 
+  //Enable using tab in textarea
+  $("#js_code").keydown(function(event) {
+    if (event.keyCode == 9) { //tab was pressed
+        console.log("Tab pressed!");
+
+        var startPos = this.selectionStart;
+        var endPos = this.selectionEnd;
+        var scrollTop = this.scrollTop;
+        this.value = this.value.substring(0, startPos) + "\t" + this.value.substring(endPos,this.value.length);
+        this.focus();
+        this.selectionStart = startPos + "\t".length;
+        this.selectionEnd = startPos + "\t".length;
+        this.scrollTop = scrollTop;
+
+        event.preventDefault();
+    }
+});
+
   $("#create_button").click(function() {
     displayCreateFile();
   });
