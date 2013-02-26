@@ -57,7 +57,7 @@ function displayCreateFile() {
     animation: 'fade',
     animationspeed: 200,
     closeonbackgroundclick: true,
-    dismissmodalclass: 'close-reveal-modal'
+    dismissmodalclass: 'closer'
   });
 }
 
