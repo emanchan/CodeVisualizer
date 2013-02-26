@@ -2,6 +2,7 @@
 var localDatabase = {}; // Holds the information for the user's files
 var currentUser = "";
 var currentFile = "";
+var tempFile = '1';
 
 function getFiles(username) {
   $.ajax({
@@ -61,9 +62,12 @@ function displayCreateFile() {
   });
 }
 
-function createFile() {
-  var filename = $("#filename_input").val();
+function createFilePopup(){
+  createFile($("#filename_input").val());
   $("#filename_input").val("");
+}
+
+function createFile(filename) {
   if (filename === "")
     return;
   $.ajax({
@@ -76,20 +80,15 @@ function createFile() {
     },
     url: "/create/",
     success: function (data) {
-      localDatabase[filename] = {
-        "text": "// Enter Your Code Here",
-        "compiled_code": "",
-        "statistics": "",
-        "warnings": "",
-        "date": new Date()
-      };
-      // set current file to newly created file
+      getFiles(currentUser);
       currentFile = filename;
       console.log(localDatabase[filename].text);
       $("#js_code").val(localDatabase[filename].text);
       $("#code_content").val(localDatabase[filename].compiled_code);
       $("#stats_text").val(localDatabase[filename].statistics);
       $("#warning_text").val(localDatabase[filename].warnings);
+      $("#new_filename_input").html(currentFile);
+      $("#status").html("Created " + currentFile);
     },
     error: function(xhr) {
       alert("A file with that name already exists!")}
@@ -97,23 +96,21 @@ function createFile() {
 }
 
 function updateFile(filename) {
-  if(canSave === '1'){
-    $.ajax({
-    type: "post",
-    dataType: "json",
-    data: {
-      "currentUser": currentUser,
-      "filename": filename,
-      "text": localDatabase[filename].text,
-      "compiled_code": localDatabase[filename].compiled_code,
-      "statistics": localDatabase[filename].statistics,
-      "warnings": localDatabase[filename].warnings
-    },
-    url: "/save/",
-    error: function(xhr) {
-      alert(xhr.responseText)}
-    });
-  }
+  $.ajax({
+  type: "post",
+  dataType: "json",
+  data: {
+    "currentUser": currentUser,
+    "filename": filename,
+    "text": localDatabase[filename].text,
+    "compiled_code": localDatabase[filename].compiled_code,
+    "statistics": localDatabase[filename].statistics,
+    "warnings": localDatabase[filename].warnings
+  },
+  url: "/save/",
+  error: function(xhr) {
+    alert(xhr.responseText)}
+  });
 }
 
 function login() {
@@ -135,15 +132,20 @@ function login() {
       $("#login_div").hide(250);
       $("#user").html("Welcome " + currentUser + "!");
       $("#userbar").show(0);
+      localDatabase[currentFile] = {
+        "text": "// Enter Your Code Here",
+        "compiled_code": "Haven't compiled any code",
+        "statistics": "No statistics",
+        "warnings": "No warnings",
+        "date": new Date()
+      };
 
       $("#logout_button").html("Logout").click(function() { // Log out action
         currentUser = "";
         $("#navbar").hide(25);
         $("#userbar").hide(50);
         $("#login_div").show(25);
-
         localDatabase = {};
-
       })
     }
   });
@@ -327,15 +329,32 @@ function tick() {
 
   $("#load_button").click(function() {
     generateFileSelector();
+    $("#new_filename_input").html(currentFile);
+    $("#status").html("Loaded " + currentFile);
   });
 
   $("#submitCode").click(function () {
+    $("#status").html("Compiling..." );
     sendCode();
+    $("#status").html("Compiled " + currentFile);
   });
 
   $("#saveCode").click(function () {
-    updateFile(currentFile);
+    if($("#new_filename_input").val() === "") {
+      $("#status").html("Please enter a valid filename");
+    } else if(tempFile === '1'){
+      currentFile = $("#new_filename_input").val();
+      $("#status").html("Saving");
+      createFile(currentFile);
+      updateFile(currentFile);
+      $("#new_filename_input").val(currentFile);
+      $("#status").html("Saved " + currentFile);
+      tempFile = '0';
+    } else {
+      updateFile(currentFile);
+    }
   });
+
 
   // Hide file_select div, only show it when user needs to select file
   $("#navbar").hide(0)

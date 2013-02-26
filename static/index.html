@@ -43,7 +43,7 @@
 		<!-- Create file Overlay -->
 		<div id = "create_file_popup" class = "reveal-modal">
 			<input type="text" id = "filename_input" placeholder = "filename" name = "filename">
-			<button id = "create_button" class ="closer" onclick = "createFile()">Create</button>
+			<button id = "create_button" class ="closer" onclick = "createFilePopup()">Create</button>
 		</div>
 
 		<!-- file_select Div Overlay -->
@@ -54,13 +54,14 @@
 		<!-- Start Content -->
 		<div id="content">
 			<div id="lpanel"> 
-				<h2>Code Editor</h2>
+				<h2 id="status">Editing temporary file</h2>
 				<div id="editor_area">
      				<textarea id="js_code"></textarea>
-     				<input id="compilation_level" type="checkbox" name="compilation_level">
-     				<p id="optimize_checkbox">Optimize</p>
-      				<button id="submitCode">Compile</button>
+     				<button id="submitCode">Compile</button>
+     				<input id="compilation_level" type="checkbox" name="compilation_level">Optimize<br></p>
     				<button id="saveCode">Save</button>
+    				<label>Save as:</label>
+    				<input type="text" id = "new_filename_input" placeholder = "new filename" name = "filename">
     			</div>
 			</div>
 			<div id="rpanel">

@@ -1,12 +1,10 @@
 //This file interactes with google closure compler and update DOM
-var canSave;
 
 function sendCode () {
   var js_code = $("#js_code").val();
   var compilation_level = "WHITESPACE_ONLY";
   if($("#compilation_level").is(":checked") === true)
     compilation_level = "SIMPLE_OPTIMIZATIONS";
-  canSave = '1';
   getCompiledCode(js_code, compilation_level);
   getErrors(js_code, compilation_level);
   getWarnings(js_code, compilation_level);
@@ -23,10 +21,11 @@ function getCompiledCode(js_code, compilation_level) {
     success: function (data) {
       if(data.compiledCode === undefined){
          $("#code_content").html(data.serverErrors[0].error);
-         canSave = '0';
       } else {
         $("#code_content").html(data.compiledCode);
-        localDatabase[currentFile].compiled_code = data.compiledCode;
+        if(tempFile === '0'){
+          localDatabase[currentFile].compiled_code = data.compiledCode;
+        }
       }
     }
   });
@@ -47,7 +46,9 @@ function getErrors(js_code, compilation_level) {
           errorMSG += "  " + data.errors[i].error + '\n';
         }
         $("#code_content").html(errorMSG);
-        canSave = '0';
+        if(tempFile === '0'){
+          localDatabase[currentFile].compiled_code = data.errors;
+        }
       }
     }
   });
@@ -67,10 +68,15 @@ function getWarnings(js_code, compilation_level) {
           warningMSG += "  " + data.warnings[i].warning + '\n';
         }
         $("#warning_area p").html(warningMSG);
-        localDatabase[currentFile].warnings = warningMSG;
+
+        if(tempFile === '0'){
+          localDatabase[currentFile].warnings = warningMSG;
+        }
       } else {
         $("#warning_area p").html("No warnings");
-        localDatabase[currentFile].warnings = "No warnings";
+        if(tempFile === '0'){
+          localDatabase[currentFile].warnings = "No warnings";
+        }
       }
     }
   });
@@ -88,10 +94,14 @@ function getStatistics(js_code, compilation_level) {
         statMSG += "Compressed size: " + data.statistics.compressedSize + "<br>";
         statMSG += "Compile Time: " + data.statistics.compileTime;
         $("#stat_area p").html(statMSG);
-        localDatabase[currentFile].statistics = statMSG;
+        if(tempFile === '0'){
+          localDatabase[currentFile].statistics = statMSG;
+        }
       } else {
         $("#stat_area p").html("No statistics");
-        localDatabase[currentFile].statistics = "No statistics";
+        if(tempFile === '0'){
+          localDatabase[currentFile].statistics = "No statistics";
+        }
       }
     }
   });
