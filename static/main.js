@@ -29,10 +29,10 @@ function generateFileSelector() {
       // Load the file into the workspace
       currentFile = $(this).attr("id"); // set the currentFile to file clicked
       // Load code, optimized code, warnings
-      $("#js_code").html(localDatabase[filename].text);
-      $("#code_content").html(localDatabase[filename].compiled_code);
-      $("#stats_text").html(localDatabase[filename].statistics);
-      $("#warning_text").html(localDatabase[filename].warnings);
+      $("#js_code").val(localDatabase[filename].text);
+      $("#code_content").val(localDatabase[filename].compiled_code);
+      $("#stats_text").val(localDatabase[filename].statistics);
+      $("#warning_text").val(localDatabase[filename].warnings);
     });
 
     newDiv.append("<p>").text(filename+ " " + file["date"]); // Add date    
@@ -84,11 +84,11 @@ function createFile() {
       };
       // set current file to newly created file
       currentFile = filename;
-      $("#js_code").html(localDatabase[filename].text);
-      $("#code_content").html(localDatabase[filename].compiled_code);
-      $("#stats_text").html(localDatabase[filename].statistics);
-      $("#warning_text").html(localDatabase[filename].warnings);
-
+      console.log(localDatabase[filename].text);
+      $("#js_code").val(localDatabase[filename].text);
+      $("#code_content").val(localDatabase[filename].compiled_code);
+      $("#stats_text").val(localDatabase[filename].statistics);
+      $("#warning_text").val(localDatabase[filename].warnings);
     },
     error: function(xhr) {
       alert("A file with that name already exists!")}
