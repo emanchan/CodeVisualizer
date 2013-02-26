@@ -201,12 +201,11 @@ for (var key in functionHash) {
       links.push(relationship);
     });
 
-}   
-return links;
+  }   
+  return links;
 }
-   var links = relationships(functionHash);
-];
 
+var links = relationships(functionHash);
 var nodes = {};
 
 // Compute the distinct nodes from the links.
