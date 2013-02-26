@@ -1,4 +1,11 @@
 var colors = ['green', 'red', 'blue', 'yellow']
+var FunctionElementHash = new Object();
+
+function FunctionElement(object, X, Y){
+	this.data = object; //Function Data
+	this.X = X;
+	this.Y = Y;
+}
 
 for (var key in functionHash) {
 	var i = 0;
@@ -10,35 +17,30 @@ for (var key in functionHash) {
 	i++;
 }
 
+for (var key in FunctionElementHash) {
+	var object = FunctionElementHash[key];
+	if (object.data.children.length !== 0) { //Function has Children
+		for object.data.children.forEach(function(x)) {
+			drawLine(object, FunctionElementHash[object.data.x])
+		}
+	}
+}
 
 
-drawFunction(functionName, children, line_number, count){
+drawFunction(object, functionName, children, line_number, count){
+	var FunctionElement = new FunctionElement(object, X, Y)
 	functionName.arc(centerX, center Y, radius, 0, 2*MATH.PI, false);
 	functionName.fillStyle = colors[count];
 	functionName.fill();
 	functionName.lineWidth = 5;
 	functionName.strokeStyle = '#003300';
 	functionName.stroke();
+
 }
 
-.inset {
-	display:block;
-	width:100px;
-	height:100px;
-	border-radius:50px;
-	font-size:20px;
-	color:#fff;
-	line-height:100px;
-	text-shadow:0 1px 0 #666;
-	text-align:center;
-	text-decoration:none;
-	box-shadow:1px 1px 2px #000;
-	background:#cccbbb;opacity:0.95
+drawLine(parentFunctionElement, childFunctionElement) {
+	ctx.lineWidth = 5;
+	ctx.beginPath();
+	ctx.moveTo(parentFunctionElement.X, parentFunctionElement.Y);
+	ctx.lineTo(childFunctionElement.X, childFunctionElement.Y);
 }
-
-.inset:hover {
-	color:#eee;
-	text-shadow:0 0 1px #666;
-	text-decoration:none;
-	box-shadow:0 0 4px #222 inset;
-	opacity:1}
