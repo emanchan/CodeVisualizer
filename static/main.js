@@ -26,9 +26,12 @@ function generateFileSelector() {
 
     // Create new div for each file and add click event to it
     var newDiv = $("<div>").addClass("file_row").attr("id", filename).click(function() {
-      console.log("clicked");
-      console.log($(this));
-      // TODO add load file method
+      // Load the file into the workspace
+      currentFile = $(this).attr("id"); // set the currentFile to file clicked
+      // Load code, optimized code, warnings
+      $("#js_code").html(localDatabase[filename].text);
+      $("#code_content").html(localDatabase[filename].compiled_code);
+      $("#warning_text").html(localDatabase[filename].warnings);
     });
 
     newDiv.append("<p>").text(filename+ " " + file["date"]); // Add date    
