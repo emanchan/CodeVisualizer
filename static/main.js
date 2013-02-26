@@ -220,7 +220,7 @@ $(document).ready(function () {
           (function(){
 
 var test = "function x(a,b) { \n return FX(2);\n}\n\nfunction FX(x) { \n return 4;\n}"
-//var javascript_text = localDatabase[filename].compiled_code;
+var javascript_text = localDatabase[currentFile].compiled_code;
 var functionHash = Parse(test);
 console.log("functionHash = ", functionHash);
 
