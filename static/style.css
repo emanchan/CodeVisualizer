@@ -49,7 +49,7 @@ table {
 
 /*--------------------------------------Our Stuff--------------------------------------*/
 
-/*background color should be FFF7EB*/
+/*background color should be FFFAF2*/
 
 body {
   background: #FFF;
@@ -165,7 +165,7 @@ textarea {
 }
 
 #lpanel{
-	background-color: #FFF7EB;
+	background-color: #FFFAF2;
 	float: left;
 	padding-top: 8px;
 	padding-left: 10px;
@@ -177,7 +177,7 @@ textarea {
 }
 
 #rpanel{
-	background-color: #FFF7EB;
+	background-color: #FFFAF2;
 	float: left;
 	padding-top: 8px;
 	padding-left: 10px;
@@ -216,12 +216,24 @@ textarea {
 
 #login_div {
 	position: absolute;
-	background-color: #FFF7EB;
+	background-color: #FFFAF2;
 	top:30px;
 	padding: 5%;
 	height: 100%;
 	width: 100%;
 	z-index: 1;
+}
+
+#userbar {
+	position: relative;
+	width: 250px;
+	float: right;
+	top: 10px;
+}
+
+.user_button {
+	padding-right: 20px;
+	display: inline;
 }
 
 input {

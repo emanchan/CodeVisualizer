@@ -133,6 +133,18 @@ function login() {
       getFiles(currentUser);
       $("#navbar").show(0);
       $("#login_div").hide(250);
+      $("#user").html("Welcome " + currentUser + "!");
+      $("#userbar").show(0);
+
+      $("#logout_button").html("Logout").click(function() { // Log out action
+        currentUser = "";
+        $("#navbar").hide(25);
+        $("#userbar").hide(50);
+        $("#login_div").show(25);
+
+        localDatabase = {};
+
+      })
     }
   });
 }
