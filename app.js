@@ -91,6 +91,28 @@ app.post("/create", function(request, response) {
 	}
 });
 
+app.post("/temp", function(request, response) {
+	var filename = request.body.filename;
+	var currentUser = request.body.currentUser;
+
+	if (database[currentUser][filename] !== undefined) {// File exists, return error to user
+		response.send(500, { error: "File already exists" });
+	}
+	else { // Create file and add text
+		database[currentUser][filename] = {
+		text: request.body.text,
+		date: request.body.dateCreated,
+		compiled_code: request.body.compiled_code,
+		statistics: request.body.statistics,
+		warnings: request.body.warnings
+	};
+
+	response.send({ success:true });
+	console.log(database);
+	writeFile("data.txt", JSON.stringify(database));
+	}
+});
+
 app.post("/save", function(request, response) {
 	var filename = request.body.filename;
 	var currentUser = request.body.currentUser;

@@ -36,6 +36,9 @@ function generateFileSelector() {
       $("#warning_text").val(localDatabase[filename].warnings);
       $("#new_filename_input").html(currentFile);
       $("#status").html("Loaded " + currentFile);
+
+      $("#new_filename_input").remove();
+      $("div label").remove();
     });
 
     newDiv.append("<p>").text(filename+ " " + file["date"]); // Add date    
@@ -96,6 +99,34 @@ function createFile(filename) {
       alert("A file with that name already exists!")}
   });
 }
+
+function createTempFile(filename) {
+  if (filename === "")
+    return;
+  $.ajax({
+    type: "post",
+    dataType: "json",
+    data: {
+      "currentUser": currentUser,
+      "dateCreated": new Date(),
+      "filename": filename,
+      "text": $("#js_code").val(),
+      "compiled_code": $("#code_content").val(),
+      "statistics": $("#stats_text").val(),
+      "warnings": $("#warning_text").val()
+    },
+    url: "/temp/",
+    success: function (data) {
+      getFiles(currentUser);
+      currentFile = filename;
+      $("#new_filename_input").html(currentFile);
+      $("#status").html("Created " + currentFile);
+    },
+    error: function(xhr) {
+      alert("A file with that name already exists!")}
+  });
+}
+
 
 function updateFile(filename) {
   $.ajax({
@@ -377,13 +408,13 @@ d3.tsv("data.tsv", function(error, data) {
       $("#visualizer").css("font-weight", "normal");
       var info = $("#info_area").empty();
       var codeContent = $("<textarea disabled>").attr("id","code_content");
-      codeContent.html("Optimized_Code");
+      codeContent.html(localDatabase[currentFile].compiled_code);
 
       var statArea = $("<div>").attr("id","stat_area");
-      statArea.html($("<h3>").html("Statistics:").append($("<p>").attr("id", "stats_text").html("No statistics")));
+      statArea.html($("<h3>").html("Statistics:").append($("<p>").attr("id", "stats_text").html(localDatabase[currentFile].statistics)));
 
       var infoArea = $("<div>").attr("id","warning_area");
-      infoArea.html($("<h3>").html("Warnings:").append($("<p>").attr("id", "warning_text").html("No warnings")));
+      infoArea.html($("<h3>").html("Warnings:").append($("<p>").attr("id", "warning_text").html(localDatabase[currentFile].warnings)));
 
       info.append(codeContent);
       info.append(statArea);
@@ -411,10 +442,9 @@ d3.tsv("data.tsv", function(error, data) {
     } else if(tempFile === '1'){
       currentFile = $("#new_filename_input").val();
       $("#status").html("Saving");
-      createFile(currentFile);
-      updateFile(currentFile);
-      $("#new_filename_input").val(currentFile);
-      $("#status").html("Saved " + currentFile);
+      createTempFile(currentFile);
+      $("#new_filename_input").remove();
+      $("div label").remove();
       tempFile = '0';
     } else {
       updateFile(currentFile);
