@@ -9,7 +9,7 @@ var test = "def function x(a,b) { \n return FX(2);\n}\n\ndef function FX(x) { \n
 var lines = test.split("\n");
 var numberOfLines = lines.length;
 
-function Function(name, line_number, children, variables, loops, returns, parent) {
+function Function(name, line_number, children, variables, loops, returns, length, parent) {
 	this.name = name; //String of the name of the function 
 	this.line_number = line_number; //Int
 	this.parent = parent; //Object of parent function, if any
@@ -17,6 +17,7 @@ function Function(name, line_number, children, variables, loops, returns, parent
 	this.variables = variables; //Hash of variable objects
 	this.loops = loops; //Array of loops
 	this.returnVals = returns; //Array of Return Value Objects: (value, type)
+	this.length = length;
 }
 
 function childFunction(name, parent, line_number){
@@ -106,16 +107,16 @@ function isChildFunction(line_number, parent_name) {
 	console.log("Calling isChildFunction...");
 	console.log("line_number = ", line_number);
 	console.log(lines[line_number+1]);
-	for (var i5 = line_number+1; i5 < numberOfLines-1 || lines[i5].indexOf("function ") === -1 ; i5++) {
-		console.log("i5 = ", i5, "lines[i5] =", lines[i5])
-		var child_function = lines[i5].split("(")[0].split(" ")[2];
+	for (var i = line_number+1; i < numberOfLines-1 || lines[i].indexOf("function ") === -1 ; i++) {
+		console.log("i = ", i, "lines[i] =", lines[i])
+		var child_function = lines[i].split("(")[0].split(" ")[2];
 		console.log("child_function =", child_function);
 		if (functionHash[child_function] !== undefined){
 			console.log("isChildFunction");
-			parseChildObject(i5, parent_name, child_function);
+			parseChildObject(i, parent_name, child_function);
 		} //Function has been seen before
-		console.log(i5);
-		if (isFunction(i5+1) === false){
+		console.log(i);
+		if (isFunction(i+1) === false || i === numberOfLines-1){
 			console.log("Breaking!@@");
 			break;}
 }
@@ -131,9 +132,9 @@ function parseFunction(name, line_number) {
  	var childrenArray = new Array(); //Any functions called in this function 
  	var loopArray = new Array();
  	var functionName = lines
- 	for (var i2 = line_number+1; i2 < numberOfLines-1 || lines[i2].indexOf("function ") === -1 ; i2++) { //Space needed for anon. functions
+ 	for (var i = line_number+1; i < numberOfLines-1 || lines[i].indexOf("function ") === -1 ; i++) { //Space needed for anon. functions
 		console.log("got_here!");
-		line = lines[i2];
+		line = lines[i];
 		console.log("line = ", line);
 		if (isVariable(line) === true){
 			console.log("Found Variable!");
@@ -145,31 +146,31 @@ function parseFunction(name, line_number) {
 		// 	var childrenObject = parseChildFunction(i2, name);
 		// 	childrenArray.push(childrenObject);
 		// 	}
-		else if (isLoop(i2) === true){
+		else if (isLoop(i) === true){
 			console.log("Found Loop!");
-			var loopObject = parseLoop(i2);
+			var loopObject = parseLoop(i);
 			loopArray.push(loopObject);
 			}
 		else if (isComment(line) === true){
 			console.log("Found Comment!");
 			parseComment(line);
 			}
-		else if (isReturn(i2) === true){
+		else if (isReturn(i) === true){
 			console.log("Found Return!");
-			var returnObject = parseReturn(i2);
+			var returnObject = parseReturn(i);
 			returnValsArray.push(returnObject);
 		}
-		console.log("i2 = ", i2);
-		if (i2 === numberOfLines-1){
+		console.log("i = ", i);
+		if (isFunction(i+1)!== false ||i === numberOfLines-1){
 			break;
 		}
 	}
-	functionObject = new Function(name, line_number, childrenArray, variablesHash, loopArray, returnValsArray);
+	functionObject = new Function(name, line_number, childrenArray, variablesHash, loopArray, returnValsArray, i);
 	console.log("function object = ", functionObject);
 	functionArray.push(functionObject);
 	functionHash[name] = functionObject;
 	console.log("Finished!");
-	return i2;
+	return i;
 }
 
 function isLoop(line_number) { 
@@ -247,19 +248,19 @@ function parseChildObject(line_number, parent_name, child_name){
 // 		}
 // 	}
 
-for (var i3 = 0; i3 < numberOfLines; i3++) {
-	console.log(i3, lines[i3]);
-	var data = isFunction(i3);
+for (var i = 0; i < numberOfLines; i++) {
+	console.log(i, lines[i]);
+	var data = isFunction(i);
 	if (data !== false){
 		console.log("Data = ", data);
-		parseFunction(data, i3);
+		parseFunction(data, i);
 	}
 }
 
-for (var i4 = 0; i4 < numberOfLines; i4++) {
-	var data = isFunction(i4);
+for (var i = 0; i < numberOfLines; i++) {
+	var data = isFunction(i);
 	if (data !== false){
-		isChildFunction(i4, data);
+		isChildFunction(i, data);
 	}
 }
 
