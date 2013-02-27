@@ -400,6 +400,20 @@ text-align:center;
 	z-index: 3;
 }
 
+#login_div h1{
+	font-size: 40px;
+	padding-bottom: 10px;
+}
+
+#login_div ul{
+	list-style: circle;
+	padding-left: 30px;
+}
+
+#login_div li{
+	margin: 10px 10px;
+}
+
 #userbar {
 	position: relative;
 	float: right;
