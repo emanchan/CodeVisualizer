@@ -61,7 +61,7 @@ function generateFileSelector() {
       $("#new_filename_input").remove();
       $("div label").remove();
       tempFile = '0';
-      showNotification(currentFile + " Loaded", "green");
+      showNotification(currentFile + "Loaded", "green");
       $("#status").html(currentFile);
     });
 
@@ -505,9 +505,28 @@ d3.tsv("data.tsv", function(error, data) {
   });
 
   $("#saveCode").unbind('click').bind('click', function () {
+<<<<<<< HEAD
+    if($("#new_filename_input").val() === "") {
+      showNotification("Please enter a valid filename", "red");
+    } else if(tempFile === '1'){ // If file is temp, show display to add name and save
+
+      $("#status").html("Saving");
+      createTempFile(currentFile);
+      $("#new_filename_input").remove();
+      $("div label").remove();
+      tempFile = '0';
+    } else { // Save to local and then push to server
+      localDatabase[currentFile] = {};
+      localDatabase[currentFile].text = $("#js_code").val();
+      localDatabase[currentFile].compiled_code = $("#code_content").val();
+      localDatabase[currentFile].statistics = $("#stats_text").val();
+      localDatabase[currentFile].warnings = $("#warning_text").val();
+
+=======
     if(tempFile === '1'){
       displayCreateFile();
     } else{
+>>>>>>> a62d3708bbe96acd704438f198f6cac41e2cc1e8
       updateFile(currentFile);
     }
   });
