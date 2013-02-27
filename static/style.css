@@ -203,7 +203,7 @@ text-align:center;
 	text-align: center;
 	line-height: 32px;
 	margin-left: auto;
-    margin-right: auto;
+  margin-right: auto;
 }
 
 #myCanvas {
@@ -215,19 +215,19 @@ text-align:center;
 #lpanel{
 	background-color: #FFFAF2;
 	float: left;
-	padding-top: 12px;
+	padding-top:32px;
 	padding-left: 57px;
 	padding-right: 28px;
 	width: 40%;
 	height: 100%;
 	box-sizing: border-box;
-	border-right: 1px solid #000;
+	border-right: 1px solid #AAA;
 }
 
 #rpanel{
 	background-color: #FFFAF2;
 	float: left;
-	padding-top: 12px;
+	padding-top: 32px;
 	width: 60%;
 	height: 100%;
 	box-sizing: border-box;
@@ -377,7 +377,7 @@ text-align:center;
 	padding: 5%;
 	height: 100%;
 	width: 100%;
-	z-index: 10;
+	z-index: 3;
 }
 
 #userbar {
