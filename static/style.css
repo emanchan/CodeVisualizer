@@ -129,7 +129,7 @@ textarea {
 	height: 32px;
 	box-shadow: 0px 0px 5px 0px black;
 	display: inline;
-	z-index: 3;
+	z-index: 5;
 	cursor: default;
 	/*border-top: 1px solid #FFF;*/
 }
@@ -197,15 +197,13 @@ textarea {
 	background-color: #FFFAF2;
 	float: left;
 	padding-top: 12px;
-	padding-left: 29px;
-	padding-right: 57px;
 	width: 60%;
 	height: 100%;
 	box-sizing: border-box;
 }
 
 #status{
-
+	line-height: 24px
 }
 
 #editor_area{
@@ -238,22 +236,95 @@ textarea {
 	padding-left: 30px;
 }
 
+#rpanel_tabs {
+	position: relative;
+	display: block;
+	margin: 0px;
+	padding: 0px;
+	line-height: 24px;
+	cursor: default;
+	padding-left: 20px;
+}
+
+#rpanel_tabs:before {
+	z-index: 1;
+}
+
+#rpanel_tabs:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    border-bottom: 1px solid #AAA;
+    z-index: 1;
+}
+
 #rpanel_tabs li{
-	display: inline;
+	position: relative;
+	display: inline-block;
+	margin: 0px 10px;
+	padding: 0px 20px;
+	border: 1px solid #AAA;
+	background: #ECECEC;
+	z-index: 0;
+	border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background: linear-gradient(top, #AAA 50%, #ECECEC 100%);
+  text-shadow: 0px 1px #FFF;
+  margin: 0px -4px;
+  font-size: 18px;
+}
+
+#rpanel_tabs li:before,
+#rpanel_tabs li:after {
+	position: absolute;
+	bottom: -1px;
+	width: 6px;
+	height: 6px;
+	content: " ";
+	border: 1px solid #AAA;
+}
+
+#rpanel_tabs li:before{
+	left: -7px;
+	border-bottom-right-radius: 6px;
+  border-width: 0 1px 1px 0;
+  box-shadow: 1px 1px 0 #ECECEC;
+}
+
+#rpanel_tabs li:after{
+	right: -7px;
+	border-bottom-left-radius: 6px;
+  border-width: 0 0 1px 1px;
+  box-shadow: -1px 1px 0 #ECECEC;
+}
+
+#rpanel_tabs li.selected:before{
+  box-shadow: 1px 1px 0 #FFFAF2;
+}
+
+#rpanel_tabs li.selected:after{
+  box-shadow: -1px 1px 0 #FFFAF2;
+}
+
+#rpanel_tabs li.selected{
+	background: #FFFAF2;
+	color: #000;
+	z-index: 2;
+	border-bottom-color: #FFFAF2;
 }
 
 #code_info{
-	padding-right: 10px;
-	font-weight: bold;
-	padding-right:;
 }
 
 #visualizer{
-	padding-left: 10px;
 }
 
 #info_area{
 	margin-top: 12px;
+	padding-left: 29px;
+	padding-right: 57px;
 	height: 50%;
 }
 
@@ -275,7 +346,7 @@ textarea {
 	padding: 5%;
 	height: 100%;
 	width: 100%;
-	z-index: 1;
+	z-index: 10;
 }
 
 #userbar {

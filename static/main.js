@@ -211,7 +211,7 @@ $(document).ready(function () {
       var resize= $("#lpanel");
 	var contentWidth = $("#content").width();
 	var maxLeftPanelWidth = contentWidth - 50;
-      var padding = 1 + 3 * 57;
+      var padding = 1 + 2 * 57 - 29;
 
 	$("#lpanel").resizable({
       handles: 'e',
@@ -235,8 +235,8 @@ $(document).ready(function () {
   //Handles switching between code info and visualizer in right panel
   $("#visualizer").click(function () {
     if($("#code_content" === undefined) && tempFile === '0'){
-      $("#visualizer").css("font-weight", "bold");
-      $("#code_info").css("font-weight", "normal");
+      $('#code_info').attr("class","");
+      $('#visualizer').addClass("selected");
       var info = $("#info_area").empty();
           (function(){
 
@@ -425,8 +425,8 @@ d3.tsv("data.tsv", function(error, data) {
   //Handles switching between code info and visualizer in right panel
   $("#code_info").click(function () {
     if($("#myCanvas" === undefined) && tempFile === '0'){
-      $("#code_info").css("font-weight", "bold");
-      $("#visualizer").css("font-weight", "normal");
+      $('#visualizer').attr("class","");
+      $('#code_info').addClass("selected");
       var info = $("#info_area").empty();
       var codeContent = $("<textarea disabled>").attr("id","code_content");
       codeContent.html(localDatabase[currentFile].compiled_code);
