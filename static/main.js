@@ -23,7 +23,7 @@ function showNotification(message, type) { // type is "green" or "red"
   $("#titlebar").append(notification);
   notification.hide();
   notification.fadeIn(350, function() { // Fade in and then after 3 seconds, fade out
-    setTimeout(function() { notification.fadeOut(350)}, 4000);
+    setTimeout(function() { notification.fadeOut(350, function() {notification.remove()})}, 4000);
   });
 }
 
