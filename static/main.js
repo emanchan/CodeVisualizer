@@ -20,10 +20,10 @@ function showNotification(message, type) { // type is "green" or "red"
   if (type === "red") {
     notification.css("background-color", "#FFAEAE");
   }
-  $("#titlebar").append(notification);
+  $("#notification_bar").append(notification);
   notification.hide();
   notification.fadeIn(350, function() { // Fade in and then after 3 seconds, fade out
-    setTimeout(function() { notification.fadeOut(350, function() {notification.remove()})}, 4000);
+    setTimeout(function() { notification.fadeOut(400, function() {notification.remove()})}, 4000);
   });
 }
 
@@ -83,6 +83,7 @@ function displayCreateFile() {
 }
 
 function createFilePopup(){
+  // Call create file and clear input box
   createFile($("#filename_input").val());
   $("#filename_input").val("");
 }
@@ -100,15 +101,13 @@ function createFile(filename) {
     },
     url: "/create/",
     success: function (data) {
-      getFiles(currentUser);
       currentFile = filename;
-      console.log(localDatabase[filename].text);
-      $("#js_code").val(localDatabase[filename].text);
-      $("#code_content").val(localDatabase[filename].compiled_code);
-      $("#stats_text").val(localDatabase[filename].statistics);
-      $("#warning_text").val(localDatabase[filename].warnings);
-      $("#new_filename_input").html(currentFile);
-      $("#status").html("Created " + currentFile);
+      localDatabase[filename] = {};
+      localDatabase[filename].text = $("#js_code").val();
+      localDatabase[filename].compiled_code = $("#code_content").val();
+      localDatabase[filename].statistics = $("#stats_text").val();
+      localDatabase[filename].warnings = $("#warning_text").val();
+      $("#status").html("Editing " + currentFile);
       tempFile = '0';
 
       showNotification("File Created", "green");
