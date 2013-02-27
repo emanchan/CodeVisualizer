@@ -82,6 +82,29 @@ textarea {
 	margin: 12px auto;
 }
 
+table {
+width:90%;
+border-top:1px solid #e5eff8;
+border-right:1px solid #e5eff8;
+margin:1em auto;
+border-collapse:collapse;
+}
+
+thead th {
+background:#EBF2FA;
+text-align:center;
+font:bold 1.2em/2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
+color:#66a3d3;
+}
+
+td {
+color:#678197;
+border-bottom:1px solid #e5eff8;
+border-left:1px solid #e5eff8;
+padding:.3em 1em;
+text-align:center;
+}
+
 #title {
 	float: left;
 	padding-top: 1px;
@@ -137,9 +160,14 @@ textarea {
 #file_select {
 	position: absolute;
 	background-color: white;
-	width: 30%;
-	height: 50%;
+	width: 40%;
+	height: 70%;
 	z-index: 15;
+}
+
+#file_select_table {
+	width: 100%;
+	height: 100%;
 }
 
 #content {

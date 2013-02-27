@@ -29,15 +29,23 @@ function showNotification(message, type) { // type is "green" or "red"
 
 
 function generateFileSelector() {
-  // Clear previous generated file selector
-  $("#file_select").html("");
+  $("#file_select").html(""); // Clear previous generated file selector
+  var fileSelector = $("#file_select");
+
+  // Create a HTML Table and append to file selector
+  var table = $("<table>").attr("id", "file_select_table");
+  fileSelector.append(table);
+
+  // Create Table Header
+  var tableHeader = $("<thead>")
+  tableHeader.append('<tr />').children('tr').append('<th>Filename</th><th>Date</th><th>Time</th>');
+  table.append(tableHeader);
 
   for (var filename in localDatabase) {
     var file = localDatabase[filename];
-    var fileSelector = $("#file_select"); // Create div for individual file
 
-    // Create new div for each file and add click event to it
-    var newDiv = $("<div>").addClass("file_row").addClass("closer").attr("id", filename).click(function() {
+    // Create new tr for each file and add click event to it
+    var newRow = $("<tr>").addClass("file_row").addClass("closer").attr("id", filename).click(function() {
       // Load the file into the workspace
       currentFile = $(this).attr("id"); // set the currentFile to file clicked
       // Load code, optimized code, warnings
@@ -47,20 +55,19 @@ function generateFileSelector() {
       $("#warning_text").val(localDatabase[currentFile].warnings);
       $("#new_filename_input").html(currentFile);
       $("#status").html("Loaded " + currentFile);
-
       $("#new_filename_input").remove();
       $("div label").remove();
-
       tempFile = '0';
-
       showNotification("File Loaded", "green");
     });
 
     var dateObject = new Date(file.date);
     var dateString = dateObject.toLocaleDateString() + " " + dateObject.toLocaleTimeString();
 
-    newDiv.append("<p>").text(filename+ " " + dateString); // Add filename and date    
-    fileSelector.append(newDiv); // Add div to fileSelector
+    newRow.append("<td>" + filename + "</tr>");
+    newRow.append("<td>" + dateObject.toLocaleDateString() + "</tr>");
+    newRow.append("<td>" + dateObject.toLocaleTimeString() + "</tr>");
+    table.append(newRow);
   }
   var closeButton = $("<a>").html("&#215;").addClass("close-reveal-modal").addClass("closer");
     $("#file_select").append(closeButton);
