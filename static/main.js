@@ -107,11 +107,10 @@ function createFilePopup(){
 }
 
 function createFile(filename) {
-
-  if (filename === "")
+  if (filename === ""){
     showNotification("Please enter a valid filename", "red");
     return;
-
+  }
   $.ajax({
     type: "post",
     dataType: "json",
@@ -140,9 +139,10 @@ function createFile(filename) {
 }
 
 function createTempFile(filename) {
-  if (filename === "")
+  if (filename === ""){
     showNotification("Please enter a valid filename", "red");
     return;
+  }
   $.ajax({
     type: "post",
     dataType: "json",

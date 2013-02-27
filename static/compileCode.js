@@ -3,7 +3,6 @@
 function sendCode () {
   var js_code = $("#js_code").val();
   var compilation_level = $("#editor_area input[type='radio']:checked").val();
-  console.log(compilation_level);
   getCompiledCode(js_code, compilation_level);
   getErrors(js_code, compilation_level);
   getWarnings(js_code, compilation_level);
