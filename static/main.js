@@ -52,6 +52,8 @@ function generateFileSelector() {
       $("div label").remove();
 
       tempFile = '0';
+
+      showNotification("File Loaded", "green");
     });
 
     newDiv.append("<p>").text(filename+ " " + file["date"]); // Add date    
@@ -108,9 +110,11 @@ function createFile(filename) {
       $("#new_filename_input").html(currentFile);
       $("#status").html("Created " + currentFile);
       tempFile = '0';
+
+      showNotification("File Created", "green");
     },
     error: function(xhr) {
-      alert("A file with that name already exists!")}
+      showNotification("A file with that name already exists!", "red");}
   });
 }
 
@@ -137,7 +141,7 @@ function createTempFile(filename) {
       $("#status").html("Created " + currentFile);
     },
     error: function(xhr) {
-      alert("A file with that name already exists!")}
+      showNotification("A file with that name already exists!", "red");}
   });
 }
 
@@ -155,8 +159,11 @@ function updateFile(filename) {
     "warnings": localDatabase[filename].warnings
   },
   url: "/save/",
+  success: function() {
+    showNotification("File Saved", "green");
+  },
   error: function(xhr) {
-    alert(xhr.responseText)}
+    showNotification(xhr.responseText, "red")}
   });
 }
 

@@ -171,6 +171,7 @@ textarea {
 	}
 .notification > p {
 	margin: 0px;
+	text-align: center;
 	line-height: 32px;
 }
 
