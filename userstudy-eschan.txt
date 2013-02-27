@@ -1,0 +1,11 @@
+User 1  - "tabbed didn't work"
+        	"Unclear what optimize does"
+        	"Expect to press enter when loading a file"
+
+User 2 -  	"tabs did not work"
+			"could use buttons"
+			
+
+User 3 - 	"unclear what app does"
+			"resizing broke the app"
+			"unclear that you need to have a filename when saving"
