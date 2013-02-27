@@ -1,8 +1,13 @@
-jkleung1, Ethan, Alvin
+Ethan, Alvin, jkleung1
 
 15237 Unit Project
-Code Visualizer for JS
+Code Editor & Visualizer for JS
+	Our app will be able to compile JS code using google closure api, which can perform various levels of optimizations, provide warnings, and error checking. Users are able to use a username to save their files to our server. Then users are able to use the visualization fature to see the relationships between functions.
 
-Google clousure API
+Used API's
+	jquery API
+	Google clousure compiler API
+	jquery UI API
 
-jquery UI API
+Other atrribtutions
+	http://css-tricks.com/better-tabs-with-round-out-borders/

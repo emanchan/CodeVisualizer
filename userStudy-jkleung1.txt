@@ -1,0 +1,27 @@
+Jonathan Leung jkleung1 User Study
+All users are provided that the app is a code editor
+
+Adam R
+	Asked what programming language
+Typed <script>
+Seems to have intuitive Layout as able to figure out normal workflow
+	Clicked and tried all read save functions
+	Tried to use tab key in text editor
+	Visualize button not obvious, didn’t press it
+
+Users below have been told the app is a JS code editor
+
+Charles
+	Went through normal workflow without deviation
+	Didn’t function
+Not sure about usefulness
+
+Russell
+	Went through normal workflow without deviation
+Didn’t see visualize
+	Need more feedback
+
+Result:
+	Implement some sort of feedback system
+	Enable tabbing in textarea
+	Make visualize button visible through tabbing the right panel
