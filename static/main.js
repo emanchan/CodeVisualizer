@@ -172,6 +172,10 @@ function createTempFile(filename) {
 
 
 function updateFile(filename) {
+  localDatabase[filename].text = $("#js_code").val();
+  localDatabase[filename].compiled_code = $("#code_content").val();
+  localDatabase[filename].statistics = $("#stats_text").val();
+  localDatabase[filename].warnings = $("#warning_text").val();
   $.ajax({
   type: "post",
   dataType: "json",
@@ -196,9 +200,11 @@ function login() {
   var userId = $("#login_input").val().toLowerCase();
   var checkUsername = /^[A-Za-z0-9_]{3,20}$/;
 
-  if (!checkUsername.test(userId)) // If regex isn't matched, don't continue
+  if (!checkUsername.test(userId)){// If regex isn't matched, don't continue
     showNotification("The format of your username is invalid", "red");
     return;
+  } 
+    
   currentUser = userId;
   $.ajax({
     type: "post",
@@ -502,7 +508,6 @@ d3.tsv("data.tsv", function(error, data) {
   $("#submitCode").unbind('click').bind('click', function () {
     showNotification("Compiling...","green");
     sendCode();
-    showNotification("Finished Compiling!","green");
   });
 
   $("#saveCode").unbind('click').bind('click', function () {

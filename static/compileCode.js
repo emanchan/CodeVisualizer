@@ -7,6 +7,7 @@ function sendCode () {
   getErrors(js_code, compilation_level);
   getWarnings(js_code, compilation_level);
   getStatistics(js_code, compilation_level);
+  showNotification("Finished Compiling!","green");
 }
 
 //Retrives compiled code and checks for server errors
