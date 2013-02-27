@@ -16,6 +16,10 @@ function getFiles(username) {
 }
 
 function showNotification(message, type) { // type is "green" or "red"
+  if ($("#notification_bar").children().length !== 0) { // has children
+    console.log("more than one");
+    var notification = $("#notification_bar").children().remove();
+  }
   var notification = $("<div>").addClass("notification").html($("<p>").html(message));
   if (type === "red") {
     notification.css("background-color", "#FFAEAE");
@@ -23,7 +27,7 @@ function showNotification(message, type) { // type is "green" or "red"
   $("#notification_bar").append(notification);
   notification.hide();
   notification.fadeIn(350, function() { // Fade in and then after 3 seconds, fade out
-    setTimeout(function() { notification.fadeOut(400, function() {notification.remove()})}, 4000);
+    setTimeout(function() { notification.fadeOut(400, function() {$(this).remove})}, 4000);
   });
 }
 
@@ -99,8 +103,10 @@ function createFilePopup(){
 }
 
 function createFile(filename) {
+
   if (filename === "")
     return;
+
   $.ajax({
     type: "post",
     dataType: "json",
@@ -211,7 +217,6 @@ function login() {
         $("#userbar").hide(50);
         $("#login_div").show(25);
         localDatabase = {};
-        console.log("logout");
         showNotification("Logged out successfully", "green");
       });
     }
@@ -490,15 +495,21 @@ d3.tsv("data.tsv", function(error, data) {
 
   $("#saveCode").unbind('click').bind('click', function () {
     if($("#new_filename_input").val() === "") {
-      $("#status").html("Please enter a valid filename");
-    } else if(tempFile === '1'){
-      currentFile = $("#new_filename_input").val();
+      showNotification("Please enter a valid filename", "red");
+    } else if(tempFile === '1'){ // If file is temp, show display to add name and save
+
       $("#status").html("Saving");
       createTempFile(currentFile);
       $("#new_filename_input").remove();
       $("div label").remove();
       tempFile = '0';
-    } else {
+    } else { // Save to local and then push to server
+      localDatabase[currentFile] = {};
+      localDatabase[currentFile].text = $("#js_code").val();
+      localDatabase[currentFile].compiled_code = $("#code_content").val();
+      localDatabase[currentFile].statistics = $("#stats_text").val();
+      localDatabase[currentFile].warnings = $("#warning_text").val();
+
       updateFile(currentFile);
     }
   });
