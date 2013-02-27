@@ -61,7 +61,7 @@ function getWarnings(js_code, compilation_level) {
     success: function (data) {
       if(data.warnings !== undefined){
         var warningMSG = "";
-        for(var i = 0; i < data.warnings.length; i++) {s
+        for(var i = 0; i < data.warnings.length; i++) {
           warningMSG += "Line: " + data.warnings[i].lineno + '\n';
           warningMSG += "  " + data.warnings[i].warning + '\n';
         }
