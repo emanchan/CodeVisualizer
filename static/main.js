@@ -16,7 +16,7 @@ function getFiles(username) {
 }
 
 function showNotification(message, type) { // type is "green" or "red"
-  var notification = $("<div>").addClass("notification").append($("<p>").html(message))
+  var notification = $("<div>").addClass("notification").html($("<p>").html(message));
   if (type === "red") {
     notification.css("background-color", "#FFAEAE");
   }
