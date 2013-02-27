@@ -1,0 +1,34 @@
+user study 1: 
+
+tried to hit enter to log in
+asked what language the app uses
+started typing right away without creating file first
+entered in function and ran it. was confused when it didn't appear right away and clicked 	compile multiple times
+saved the file
+user didn't notice the buttons at the top
+
+user study 2:
+user thought that the placeholder text in the login was real text and tried to log in without a user name
+asked what languages the app supported
+user didn't know that he could click on the visualizations tab
+user was unsure what the optimization option would do
+user said he liked the clean design of the site since it was coding related and that the site did everything it was supposed to do.
+
+user study 3:
+didn't know what username to enter, she didn't know that the system automatically registers a user if they don't exist in the database
+was unsure of what language it used
+didn't know there was a visualizations tab on the site
+clicked on compile many times because she didn't know why it took so long to return something
+user was confused at what kind of optimizations the server would run on the code
+user seemed a bit disappointed that the site didn't do a lot more with the code
+
+conclusions:
+add more user feedback so they know exactly what is going on
+make the visualizations tab more prominent so users know that it is a button and not just text
+be more clear in descriptions so users know what the site does
+
+iteration:
+added notification for compile that lets the user know the request was received
+added more user feedback in the form of popup notifications
+added clear tabbing for "visualization" and "compiled code" section for the site
+added more description in README

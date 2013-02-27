@@ -197,6 +197,7 @@ function login() {
   var checkUsername = /^[A-Za-z0-9_]{3,20}$/;
 
   if (!checkUsername.test(userId)) // If regex isn't matched, don't continue
+    showNotification("The format of your username is invalid", "red");
     return;
   currentUser = userId;
   $.ajax({
@@ -212,7 +213,7 @@ function login() {
       $("#user").html("Welcome " + currentUser + "!");
       $("#userbar").show(0);
       localDatabase[currentFile] = {
-        "text": "// Enter Your Code Here",
+        "text": "// Enter Your Javascript Here",
         "compiled_code": "Haven't compiled any code",
         "statistics": "No statistics",
         "warnings": "No warnings",

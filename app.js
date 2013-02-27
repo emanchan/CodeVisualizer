@@ -79,7 +79,7 @@ app.post("/create", function(request, response) {
 	}
 	else { // Create file and add text
 		database[currentUser][filename] = {
-			text: "// Enter Your Code Here",
+			text: "// Enter Your Javascript Here",
 			date: request.body.dateCreated,
 			compiled_code: "Haven't compiled any code",
 			statistics: "No statistics",
