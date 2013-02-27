@@ -56,14 +56,15 @@
 		<!-- Start Content -->
 		<div id="content">
 			<div id="lpanel"> 
-				<h2 id="status">Editing temporary file</h2>
+				<h2 id="status">Temporary file</h2>
 				<div id="editor_area">
      				<textarea id="js_code"></textarea>
      				<button id="submitCode">Compile</button>
-     				<input id="compilation_level" type="checkbox" name="compilation_level">Optimize<br></p>
+     				Optimization Level:
+     				<input type="radio" name="compilation_level" value="WHITESPACE_ONLY" checked>Basic
+     				<input type="radio" name="compilation_level" value="SIMPLE_OPTIMIZATIONS">Medium
+     				<input type="radio" name="compilation_level" value="ADVANCED_OPTIMIZATIONS">Agreesive<br>
     				<button id="saveCode">Save</button>
-    				<label>Save as:</label>
-    				<input type="text" id = "new_filename_input" placeholder = "new filename" name = "filename">
     			</div>
 			</div>
 			<div id="rpanel">

@@ -54,11 +54,11 @@ function generateFileSelector() {
       $("#stats_text").val(localDatabase[currentFile].statistics);
       $("#warning_text").val(localDatabase[currentFile].warnings);
       $("#new_filename_input").html(currentFile);
-      $("#status").html("Loaded " + currentFile);
       $("#new_filename_input").remove();
       $("div label").remove();
       tempFile = '0';
-      showNotification("File Loaded", "green");
+      showNotification(currentFile + "Loaded", "green");
+      $("#status").html(currentFile);
     });
 
     var dateObject = new Date(file.date);
@@ -94,12 +94,17 @@ function displayCreateFile() {
 
 function createFilePopup(){
   // Call create file and clear input box
-  createFile($("#filename_input").val());
+  if(tempFile === '1'){
+    createTempFile($("#filename_input").val());
+  } else {
+    createFile($("#filename_input").val());
+  }
   $("#filename_input").val("");
 }
 
 function createFile(filename) {
   if (filename === "")
+    showNotification("Please enter a valid filename", "red");
     return;
   $.ajax({
     type: "post",
@@ -118,10 +123,10 @@ function createFile(filename) {
       localDatabase[filename].compiled_code = $("#code_content").val();
       localDatabase[filename].statistics = $("#stats_text").val();
       localDatabase[filename].warnings = $("#warning_text").val();
-      $("#status").html("Editing " + currentFile);
-      tempFile = '0';
 
-      showNotification("File Created", "green");
+      showNotification("Created " + currentFile, "green");
+      $("#status").html(currentFile);
+      tempFile = '0';
     },
     error: function(xhr) {
       showNotification("A file with that name already exists!", "red");}
@@ -130,6 +135,7 @@ function createFile(filename) {
 
 function createTempFile(filename) {
   if (filename === "")
+    showNotification("Please enter a valid filename", "red");
     return;
   $.ajax({
     type: "post",
@@ -148,7 +154,10 @@ function createTempFile(filename) {
       getFiles(currentUser);
       currentFile = filename;
       $("#new_filename_input").html(currentFile);
-      $("#status").html("Created " + currentFile);
+      
+      showNotification("Created " + currentFile, "green");
+      $("#status").html("currentFile");
+      tempFile = '0';
     },
     error: function(xhr) {
       showNotification("A file with that name already exists!", "red");}
@@ -430,8 +439,10 @@ d3.tsv("data.tsv", function(error, data) {
       .attr("height", function(d) { return height - y(d.frequency); });
   });
 }).call(this);
-}
-});
+    } else {
+      showNotification("Please save code before visualization","red");
+    }
+  });
 
 
 
@@ -483,26 +494,18 @@ d3.tsv("data.tsv", function(error, data) {
   });
 
   $("#submitCode").unbind('click').bind('click', function () {
-    $("#status").html("Compiling..." );
+    showNotification("Compiling...","green");
     sendCode();
-    $("#status").html("Compiled " + currentFile);
+    showNotification("Finished Compiling!","green");
   });
 
   $("#saveCode").unbind('click').bind('click', function () {
-    if($("#new_filename_input").val() === "") {
-      $("#status").html("Please enter a valid filename");
-    } else if(tempFile === '1'){
-      currentFile = $("#new_filename_input").val();
-      $("#status").html("Saving");
-      createTempFile(currentFile);
-      $("#new_filename_input").remove();
-      $("div label").remove();
-      tempFile = '0';
-    } else {
+    if(tempFile === '1'){
+      displayCreateFile();
+    } else{
       updateFile(currentFile);
     }
   });
-
 
   // Hide file_select div, only show it when user needs to select file
   $("#navbar").hide(0)
