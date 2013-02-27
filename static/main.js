@@ -45,7 +45,7 @@ function generateFileSelector() {
     var file = localDatabase[filename];
 
     // Create new tr for each file and add click event to it
-    var newRow = $("<tr>").addClass("file_row").addClass("closer").attr("id", filename).click(function() {
+    var newRow = $("<tr>").addClass("file_row").addClass("closer").attr("id", filename).unbind('click').bind('click', function() {
       // Load the file into the workspace
       currentFile = $(this).attr("id"); // set the currentFile to file clicked
       // Load code, optimized code, warnings
@@ -204,13 +204,16 @@ function login() {
         "date": new Date()
       };
 
-      $("#logout_button").html("Logout").click(function() { // Log out action
+      $("#logout_button").html("Logout").unbind('click').bind('click', function() { // Log out action
         currentUser = "";
+        currentFile = ""
         $("#navbar").hide(25);
         $("#userbar").hide(50);
         $("#login_div").show(25);
         localDatabase = {};
-      })
+        console.log("logout");
+        showNotification("Logged out successfully", "green");
+      });
     }
   });
 }
@@ -243,7 +246,7 @@ $(document).ready(function () {
 	});
 
   //Handles switching between code info and visualizer in right panel
-  $("#visualizer").click(function () {
+  $("#visualizer").unbind("click").bind("click", function () {
     if($("#code_content" === undefined) && tempFile === '0'){
       $('#code_info').attr("class","");
       $('#visualizer').addClass("selected");
@@ -433,7 +436,7 @@ d3.tsv("data.tsv", function(error, data) {
 
 
   //Handles switching between code info and visualizer in right panel
-  $("#code_info").click(function () {
+  $("#code_info").unbind('click').bind('click', function () {
     if($("#myCanvas" === undefined) && tempFile === '0'){
       $('#visualizer').attr("class","");
       $('#code_info').addClass("selected");
@@ -471,21 +474,21 @@ d3.tsv("data.tsv", function(error, data) {
     }
 });
 
-  $("#create_button").click(function() {
+  $("#create_button").unbind('click').bind('click', function() {
     displayCreateFile();
   });
 
-  $("#load_button").click(function() {
+  $("#load_button").unbind('click').bind('click', function() {
     generateFileSelector();
   });
 
-  $("#submitCode").click(function () {
+  $("#submitCode").unbind('click').bind('click', function () {
     $("#status").html("Compiling..." );
     sendCode();
     $("#status").html("Compiled " + currentFile);
   });
 
-  $("#saveCode").click(function () {
+  $("#saveCode").unbind('click').bind('click', function () {
     if($("#new_filename_input").val() === "") {
       $("#status").html("Please enter a valid filename");
     } else if(tempFile === '1'){
