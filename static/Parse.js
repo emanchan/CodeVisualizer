@@ -202,7 +202,7 @@ function parseFunction(name, line_number, lines, numberOfLines) {
 			returnValsArray.push(returnObject);
 		}
 		console.log("i = ", i);
-		if (isFunction(i+1, lines)!== false ||i === numberOfLines-1){
+		if (isFunction(i+1, lines) !== false ||i === numberOfLines-1){
 			break;
 		}
 	}
