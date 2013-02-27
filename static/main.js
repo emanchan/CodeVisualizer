@@ -15,6 +15,19 @@ function getFiles(username) {
   });
 }
 
+function showNotification(message, type) { // type is "green" or "red"
+  var notification = $("<div>").addClass("notification").append($("<p>").html(message))
+  if (type === "red") {
+    notification.css("background-color", "#FFAEAE");
+  }
+  $("#titlebar").append(notification);
+  notification.hide();
+  notification.fadeIn(350, function() { // Fade in and then after 3 seconds, fade out
+    setTimeout(function() { notification.fadeOut(350)}, 4000);
+  });
+}
+
+
 function generateFileSelector() {
   // Clear previous generated file selector
   $("#file_select").html("");
