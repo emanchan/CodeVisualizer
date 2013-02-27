@@ -56,7 +56,10 @@ function generateFileSelector() {
       showNotification("File Loaded", "green");
     });
 
-    newDiv.append("<p>").text(filename+ " " + file["date"]); // Add date    
+    var dateObject = new Date(file.date);
+    var dateString = dateObject.toLocaleDateString() + " " + dateObject.toLocaleTimeString();
+
+    newDiv.append("<p>").text(filename+ " " + dateString); // Add filename and date    
     fileSelector.append(newDiv); // Add div to fileSelector
   }
   var closeButton = $("<a>").html("&#215;").addClass("close-reveal-modal").addClass("closer");
@@ -103,6 +106,7 @@ function createFile(filename) {
     success: function (data) {
       currentFile = filename;
       localDatabase[filename] = {};
+      localDatabase[filename].date = new Date();
       localDatabase[filename].text = $("#js_code").val();
       localDatabase[filename].compiled_code = $("#code_content").val();
       localDatabase[filename].statistics = $("#stats_text").val();
