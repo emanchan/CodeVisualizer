@@ -149,7 +149,7 @@ function isChildFunction(line_number, parent_name, lines) {
 		console.log("child_function =", child_function);
 		for (key in functionHash){
 		console.log("key = ", key);
-		if (lines[i].indexOf(key) !== -1){
+		if (lines[i].indexOf(key) !== -1 && lines[i].indexOf("console.log") === -1){
 			console.log("isChildFunction = ", key);
 			parseChildObject(i, parent_name, key);
 		} //Function has been seen before
