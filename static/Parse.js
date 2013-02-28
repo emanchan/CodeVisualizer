@@ -155,7 +155,7 @@ function isChildFunction(line_number, parent_name, lines) {
 		} //Function has been seen before
 		}
 		console.log(i);
-		if (isFunction(i+1) === false || i === numberOfLines-1){
+		if (isFunction(i+1) !== false || i === numberOfLines-1){
 			console.log("Breaking!@@");
 			break;}
 }
