@@ -129,7 +129,6 @@ text-align:center;
 	display: inline;
 	min-height: 25px;
 	padding: 0px 8px;
-	-webkit-transition: all 0.20s ease-in-out;
 }
 
 .nav_button:hover {
@@ -450,7 +449,6 @@ input:focus {
 .file_row {
 	font-size: 20px;
 	padding: 6px;
-	-webkit-transition: all 0.11s ease-out;
 }
 
 .file_row:hover {
