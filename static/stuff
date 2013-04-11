@@ -1,0 +1,17 @@
+class AddStateToOwners < ActiveRecord::Migration
+	def change
+		add column :owners, :state, :string, :default => "PA"
+	end
+end
+
+class AddDefaultUser < ActiveRecord::Migration
+	def up
+		Admin = User.new
+	end
+
+On the exam:
+
+	Unit Testing
+		-A model
+		-Factories
+		-Write Unit tests for 100% test coverage
